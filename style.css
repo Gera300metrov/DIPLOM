@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0a0a0a;
+    color: #e5e5e5;
+}
+
+.font-display {
+    font-family: 'Oswald', sans-serif;
+}
+
+.hero-bg {
+    background: linear-gradient(135deg, rgba(10,10,10,0.9) 0%, rgba(18,18,18,0.8) 100%), 
+                url('http://static.photos/studio/1200x630/42') center/cover;
+}
+
+.glow-effect {
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
+}
+
+.card-hover {
+    transition: all 0.3s ease;
+}
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(220, 38, 38, 0.2);
+}
+
+.booking-slot {
+    transition: all 0.2s;
+}
+.booking-slot:hover:not(.disabled) {
+    background-color: #dc2626;
+    color: white;
+    border-color: #dc2626;
+}
+.booking-slot.selected {
+    background-color: #dc2626;
+    color: white;
+    border-color: #dc2626;
+    box-shadow: 0 0 15px rgba(220, 38, 38, 0.5);
+}
+.booking-slot.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+.service-card.selected {
+    border: 2px solid #dc2626;
+    background-color: rgba(220, 38, 38, 0.1);
+}
+
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.tattoo-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Общая анимация движения градиента */
+@keyframes chromeMove {
+    0% { background-position: 0% center; }
+    100% { background-position: 300% center; }
+}
+
+/* XROM – усиленный хром (холодные тона с голубым отливом) */
+.chrome-effect {
+    background: linear-gradient(
+        90deg,
+        #fff 0%,
+        #aaa 10%,
+        #fff 20%,
+        #6ca0dc 30%,
+        #fff 40%,
+        #aaa 50%,
+        #fff 60%,
+        #6ca0dc 70%,
+        #fff 80%,
+        #aaa 90%,
+        #fff 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: chromeMove 3s infinite cubic-bezier(0.45, 0.05, 0.55, 0.95);
+    background-size: 300% auto;
+    text-shadow: 0 0 8px rgba(108, 160, 220, 0.3);
+}
+
+/* TATTOO – красный текст с белыми хром-переливами */
+.tattoo-red-white-chrome {
+    background: linear-gradient(
+        90deg,
+        #b30000 0%,
+        #ff6666 15%,
+        #ffe6e6 30%,
+        #ffb3b3 45%,
+        #ff6666 60%,
+        #b30000 75%,
+        #b30000 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: chromeMove 3.5s infinite linear;
+    background-size: 300% auto;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
