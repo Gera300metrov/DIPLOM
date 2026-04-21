@@ -3,734 +3,287 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XROM Tattoo Studio — Профессиональная тату-студия в Москве</title>
-    <meta name="description" content="Профессиональная тату-студия XROM. Онлайн запись, индивидуальные эскизы, cover up, перекрытие татуировок.">
+    <title>DEMON TATTOO — Хип-хоп тату студия</title>
+    <meta name="description" content="Тату студия с красным чёртом. Хип-хоп, дерзость, индивидуальные эскизы. Онлайн запись.">
     
-    <!-- Tailwind и Lucide -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
     
-    <!-- Подключаем внешний CSS -->
     <link rel="stylesheet" href="style.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'xrom-black': '#0a0a0a',
-                        'xrom-dark': '#121212',
-                        'xrom-gray': '#1a1a1a',
-                        'xrom-red': '#dc2626',
-                        'xrom-gold': '#d4af37',
-                        'xrom-light': '#e5e5e5'
-                    },
-                    fontFamily: {
-                        'sans': ['Inter', 'system-ui', 'sans-serif'],
-                        'display': ['Oswald', 'Impact', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
 </head>
-<body class="antialiased">
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-xrom-black/95 backdrop-blur-md border-b border-white/10 transition-all duration-300" id="navbar">
+<body>
+
+    <!-- Навигация -->
+    <nav class="fixed w-full z-50 bg-black/90 border-b-2 border-red-700 backdrop-blur-md transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-xrom-red rounded-full flex items-center justify-center">
-                        <i data-lucide="pen-tool" class="w-6 h-6 text-white"></i>
+                    <div class="w-20 h-20">
+                        <img src="image/logo-demon-devil-satan-monster-halloween-art-flat-style_219687-159.avif" alt="Логотип" class="logo-demon w-full h-full object-contain">
                     </div>
-                    <span class="font-display text-2xl font-bold tracking-wider text-white chrome-effect">XROM</span>
+                    <span class="font-bangers text-3xl text-red-600 tracking-wider">DEMON TATTOO</span>
                 </div>
-                
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#about" class="text-sm font-medium text-gray-300 hover:text-white transition-colors uppercase tracking-widest">О нас</a>
-                    <a href="#masters" class="text-sm font-medium text-gray-300 hover:text-white transition-colors uppercase tracking-widest">Мастера</a>
-                    <a href="#gallery" class="text-sm font-medium text-gray-300 hover:text-white transition-colors uppercase tracking-widest">Работы</a>
-                    <a href="#services" class="text-sm font-medium text-gray-300 hover:text-white transition-colors uppercase tracking-widest">Услуги</a>
-                    <a href="#contacts" class="text-sm font-medium text-gray-300 hover:text-white transition-colors uppercase tracking-widest">Контакты</a>
+                    <a href="#about" class="nav-link text-sm font-bold text-white hover:text-red-500 transition">О НАС</a>
+                    <a href="#masters" class="nav-link text-sm font-bold text-white hover:text-red-500 transition">МАСТЕРА</a>
+                    <a href="#styles" class="nav-link text-sm font-bold text-white hover:text-red-500 transition">СТИЛИ</a>
+                    <a href="#painmap" class="nav-link text-sm font-bold text-white hover:text-red-500 transition">КАРТА БОЛИ</a>
+                    <a href="#services" class="nav-link text-sm font-bold text-white hover:text-red-500 transition">УСЛУГИ</a>
+                    <a href="#contacts" class="nav-link text-sm font-bold text-white hover:text-red-500 transition">КОНТАКТЫ</a>
                 </div>
-                
-                <div class="flex items-center gap-4">
-                    <button onclick="openBookingModal()" class="hidden md:flex bg-xrom-red hover:bg-red-700 text-white px-6 py-2.5 rounded-full font-medium transition-all transform hover:scale-105 glow-effect uppercase tracking-wider text-sm">
-                        Записаться онлайн
-                    </button>
-                    <button class="md:hidden text-white" onclick="toggleMobileMenu()">
-                        <i data-lucide="menu" class="w-6 h-6"></i>
-                    </button>
-                </div>
+                <button onclick="openBookingModal()" class="btn-graffiti px-5 py-2 rounded-full text-sm hidden md:block">ЗАПИСАТЬСЯ</button>
+                <button class="md:hidden text-white" onclick="toggleMobileMenu()"><i data-lucide="menu" class="w-6 h-6"></i></button>
             </div>
         </div>
-        
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-xrom-dark border-t border-white/10">
-            <div class="px-4 pt-2 pb-6 space-y-2">
-                <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white uppercase tracking-widest">О нас</a>
-                <a href="#masters" class="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white uppercase tracking-widest">Мастера</a>
-                <a href="#gallery" class="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white uppercase tracking-widest">Работы</a>
-                <a href="#services" class="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white uppercase tracking-widest">Услуги</a>
-                <a href="#contacts" class="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white uppercase tracking-widest">Контакты</a>
-                <button onclick="openBookingModal()" class="w-full mt-4 bg-xrom-red text-white px-6 py-3 rounded-full font-medium uppercase tracking-wider">
-                    Записаться онлайн
-                </button>
+        <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-red-800">
+            <div class="px-4 pt-2 pb-6 space-y-3">
+                <a href="#about" class="block font-bold text-white hover:text-red-500">О НАС</a>
+                <a href="#masters" class="block font-bold text-white hover:text-red-500">МАСТЕРА</a>
+                <a href="#styles" class="block font-bold text-white hover:text-red-500">СТИЛИ</a>
+                <a href="#painmap" class="block font-bold text-white hover:text-red-500">КАРТА БОЛИ</a>
+                <a href="#services" class="block font-bold text-white hover:text-red-500">УСЛУГИ</a>
+                <a href="#contacts" class="block font-bold text-white hover:text-red-500">КОНТАКТЫ</a>
+                <button onclick="openBookingModal()" class="btn-graffiti w-full py-2 rounded-full">ЗАПИСАТЬСЯ</button>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center hero-bg tattoo-pattern">
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="hero-title font-display text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight">
-                <span class="chrome-effect">XROM</span> <span class="tattoo-red-white-chrome">TATTOO</span>
+    <!-- Hero секция (фон можно заменить в CSS) -->
+    <section class="hero-hiphop min-h-screen flex items-center justify-center relative graffiti-bg">
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+            <h1 class="font-bangers text-6xl md:text-8xl text-white tracking-wider glitch-text">
+                DEMON <span class="text-red-600">TATTOO</span>
             </h1>
-            <p class="text-xl md:text-2xl text-gray-300 mb-4 font-light max-w-2xl mx-auto">
-                Премиальная тату-студия с безупречной репутацией
-            </p>
-            <p class="text-gray-400 mb-10 max-w-xl mx-auto leading-relaxed">
-                Индивидуальные эскизы, перекрытие старых татуировок, реалистичные работы и акварель. 
-                Запишитесь онлайн прямо сейчас.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button onclick="openBookingModal()" class="bg-xrom-red hover:bg-red-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all transform hover:scale-105 glow-effect flex items-center gap-2">
-                    <i data-lucide="calendar" class="w-5 h-5"></i>
-                    Записаться онлайн
-                </button>
-                <a href="#gallery" class="border border-white/30 hover:border-white text-white px-8 py-4 rounded-full font-semibold text-lg transition-all hover:bg-white/5">
-                    Смотреть работы
-                </a>
+            <p class="text-xl md:text-2xl text-gray-300 mt-4 font-marker">Хип-хоп & уличная культура</p>
+            <p class="text-gray-400 max-w-xl mx-auto mt-4">Индивидуальные эскизы, перекрытие, реализм. Запишись сейчас!</p>
+            <div class="flex flex-col sm:flex-row gap-5 justify-center mt-10">
+                <button onclick="openBookingModal()" class="btn-graffiti px-8 py-4 rounded-full text-lg flex items-center gap-2 justify-center"><i data-lucide="calendar"></i> ОНЛАЙН-ЗАПИСЬ</button>
+                <a href="#styles" class="border border-red-600 hover:bg-red-600/20 text-white px-8 py-4 rounded-full text-lg font-bold transition">СМОТРЕТЬ СТИЛИ</a>
             </div>
-            
-            <!-- Stats -->
-            <div class="mt-16 grid grid-cols-3 gap-8 max-w-2xl mx-auto border-t border-white/10 pt-8">
-                <div>
-                    <div class="font-display text-3xl md:text-4xl font-bold text-xrom-red">10+</div>
-                    <div class="text-sm text-gray-400 mt-1 uppercase tracking-wide">Лет опыта</div>
-                </div>
-                <div>
-                    <div class="font-display text-3xl md:text-4xl font-bold text-xrom-red">5000+</div>
-                    <div class="text-sm text-gray-400 mt-1 uppercase tracking-wide">Работ</div>
-                </div>
-                <div>
-                    <div class="font-display text-3xl md:text-4xl font-bold text-xrom-red">5</div>
-                    <div class="text-sm text-gray-400 mt-1 uppercase tracking-wide">Мастеров</div>
-                </div>
+            <div class="grid grid-cols-3 gap-6 max-w-2xl mx-auto mt-16 border-t border-red-800/50 pt-8">
+                <div><div class="font-bangers text-4xl text-red-500">10+</div><div class="text-sm">Лет опыта</div></div>
+                <div><div class="font-bangers text-4xl text-red-500">5000+</div><div class="text-sm">Татуировок</div></div>
+                <div><div class="font-bangers text-4xl text-red-500">6</div><div class="text-sm">Мастеров</div></div>
             </div>
         </div>
-        
-        <!-- Scroll indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <i data-lucide="chevron-down" class="w-6 h-6 text-white/50"></i>
-        </div>
+        <div class="absolute bottom-5 left-1/2 transform -translate-x-1/2 animate-bounce"><i data-lucide="chevron-down" class="text-red-500 w-6 h-6"></i></div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-20 md:py-32 bg-xrom-dark relative overflow-hidden">
-        <div class="absolute inset-0 tattoo-pattern opacity-50"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- О нас -->
+    <section id="about" class="py-20 bg-black relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6">
-                    <h2 class="font-display text-4xl md:text-5xl font-bold text-white uppercase tracking-tight">
-                        О студии <span class="text-xrom-red">XROM</span>
-                    </h2>
-                    <div class="w-20 h-1 bg-xrom-red"></div>
-                    <p class="text-gray-300 text-lg leading-relaxed">
-                        XROM — это пространство, где искусство татуировки достигает совершенства. 
-                        Мы создаем уникальные проекты, от миниатюрных надписей до масштабных сюжетных рукавов.
-                    </p>
-                    <p class="text-gray-400 leading-relaxed">
-                        Наша студия оборудована по последнему слову техники: стерильные кабинеты, 
-                        профессиональное оборудование от Cheyenne и FK Irons, сертифицированные краски Intenze и Eternal.
-                        Ваше здоровье и безопасность — наш приоритет №1.
-                    </p>
-                    <ul class="space-y-3 mt-6">
-                        <li class="flex items-center gap-3 text-gray-300">
-                            <i data-lucide="check-circle" class="w-5 h-5 text-xrom-red"></i>
-                            Полная стерильность и одноразовые материалы
-                        </li>
-                        <li class="flex items-center gap-3 text-gray-300">
-                            <i data-lucide="check-circle" class="w-5 h-5 text-xrom-red"></i>
-                            Бесплатная консультация и разработка эскиза
-                        </li>
-                        <li class="flex items-center gap-3 text-gray-300">
-                            <i data-lucide="check-circle" class="w-5 h-5 text-xrom-red"></i>
-                            Работаем по предоплате, возможна рассрочка
-                        </li>
-                    </ul>
-                </div>
-                <div class="relative">
-                    <div class="grid grid-cols-2 gap-4">
-                        <img src="http://static.photos/indoor/400x500/1" alt="Studio interior" class="rounded-lg shadow-2xl object-cover h-64 w-full">
-                        <img src="http://static.photos/indoor/400x500/2" alt="Tattoo process" class="rounded-lg shadow-2xl object-cover h-64 w-full mt-8">
-                        <img src="http://static.photos/workspace/400x500/3" alt="Equipment" class="rounded-lg shadow-2xl object-cover h-64 w-full -mt-8">
-                        <img src="http://static.photos/indoor/400x500/4" alt="Studio atmosphere" class="rounded-lg shadow-2xl object-cover h-64 w-full">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Masters Section -->
-    <section id="masters" class="py-20 bg-xrom-black">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="font-display text-4xl md:text-5xl font-bold text-white uppercase mb-4">Наши мастера</h2>
-                <div class="w-20 h-1 bg-xrom-red mx-auto"></div>
-                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
-                    Каждый мастер специализируется на определенном стиле. Выберите того, чье портфолио вам ближе всего.
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Master 1 -->
-                <div class="group card-hover bg-xrom-gray rounded-xl overflow-hidden">
-                    <div class="relative overflow-hidden">
-                        <img src="http://static.photos/people/400x500/11" alt="Master Alex" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <button onclick="selectMaster('Алексей')" class="w-full bg-xrom-red text-white py-2 rounded-full text-sm font-medium uppercase tracking-wider">
-                                Выбрать мастера
-                            </button>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-display text-xl font-bold text-white uppercase">Алексей</h3>
-                        <p class="text-xrom-red text-sm uppercase tracking-wider mb-2">Realism / Black&Grey</p>
-                        <p class="text-gray-400 text-sm">Специалист по реализму с 8-летним опытом. Портреты, животные, фэнтези-сюжеты.</p>
-                    </div>
-                </div>
-                
-                <!-- Master 2 -->
-                <div class="group card-hover bg-xrom-gray rounded-xl overflow-hidden">
-                    <div class="relative overflow-hidden">
-                        <img src="http://static.photos/people/400x500/12" alt="Master Maria" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <button onclick="selectMaster('Мария')" class="w-full bg-xrom-red text-white py-2 rounded-full text-sm font-medium uppercase tracking-wider">
-                                Выбрать мастера
-                            </button>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-display text-xl font-bold text-white uppercase">Мария</h3>
-                        <p class="text-xrom-red text-sm uppercase tracking-wider mb-2">Watercolor / Fine Line</p>
-                        <p class="text-gray-400 text-sm">Акварельные тату, нежные линии, цветочные композиции, минимализм.</p>
-                    </div>
-                </div>
-                
-                <!-- Master 3 -->
-                <div class="group card-hover bg-xrom-gray rounded-xl overflow-hidden">
-                    <div class="relative overflow-hidden">
-                        <img src="http://static.photos/people/400x500/13" alt="Master Dmitry" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <button onclick="selectMaster('Дмитрий')" class="w-full bg-xrom-red text-white py-2 rounded-full text-sm font-medium uppercase tracking-wider">
-                                Выбрать мастера
-                            </button>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-display text-xl font-bold text-white uppercase">Дмитрий</h3>
-                        <p class="text-xrom-red text-sm uppercase tracking-wider mb-2">Trash Polka / Graphic</p>
-                        <p class="text-gray-400 text-sm">Авангардные стили, геометрия, Trash Polka, абстракция и композиции в смешанных техниках.</p>
-                    </div>
-                </div>
-                
-                <!-- Master 4 -->
-                <div class="group card-hover bg-xrom-gray rounded-xl overflow-hidden">
-                    <div class="relative overflow-hidden">
-                        <img src="http://static.photos/people/400x500/14" alt="Master Victor" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <button onclick="selectMaster('Виктор')" class="w-full bg-xrom-red text-white py-2 rounded-full text-sm font-medium uppercase tracking-wider">
-                                Выбрать мастера
-                            </button>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="font-display text-xl font-bold text-white uppercase">Виктор</h3>
-                        <p class="text-xrom-red text-sm uppercase tracking-wider mb-2">Old School / Neo-Traditional</p>
-                        <p class="text-gray-400 text-sm">Классика татуировки. Яркие цвета, четкий контур, традиционные мотивы и современная интерпретация.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="py-20 bg-xrom-dark">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="font-display text-4xl md:text-5xl font-bold text-white uppercase mb-4">Наши работы</h2>
-                <div class="w-20 h-1 bg-xrom-red mx-auto"></div>
-            </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[300px]">
-                <div class="row-span-2 relative group overflow-hidden rounded-lg cursor-pointer">
-                    <img src="http://static.photos/art/600x800/21" alt="Tattoo work 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="text-white font-medium">Реализм</span>
-                    </div>
-                </div>
-                <div class="relative group overflow-hidden rounded-lg cursor-pointer">
-                    <img src="http://static.photos/art/400x300/22" alt="Tattoo work 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="text-white font-medium">Old School</span>
-                    </div>
-                </div>
-                <div class="row-span-2 relative group overflow-hidden rounded-lg cursor-pointer">
-                    <img src="http://static.photos/abstract/600x800/23" alt="Tattoo work 3" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="text-white font-medium">Геометрия</span>
-                    </div>
-                </div>
-                <div class="relative group overflow-hidden rounded-lg cursor-pointer">
-                    <img src="http://static.photos/art/400x300/24" alt="Tattoo work 4" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="text-white font-medium">Линии</span>
-                    </div>
-                </div>
-                <div class="relative group overflow-hidden rounded-lg cursor-pointer">
-                    <img src="http://static.photos/nature/400x300/25" alt="Tattoo work 5" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="text-white font-medium">Акварель</span>
-                    </div>
-                </div>
-                <div class="col-span-2 relative group overflow-hidden rounded-lg cursor-pointer">
-                    <img src="http://static.photos/art/800x400/26" alt="Tattoo work 6" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="text-white font-medium">Рукав</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <a href="https://instagram.com" target="_blank" class="inline-flex items-center gap-2 text-xrom-red hover:text-white transition-colors font-medium">
-                    <i data-lucide="instagram" class="w-5 h-5"></i>
-                    Больше работ в Instagram
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="py-20 bg-xrom-black">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="font-display text-4xl md:text-5xl font-bold text-white uppercase mb-4">Услуги и цены</h2>
-                <div class="w-20 h-1 bg-xrom-red mx-auto"></div>
-                <p class="text-gray-400 mt-4">Окончательная стоимость рассчитывается индивидуально после консультации</p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-xrom-gray rounded-xl p-8 card-hover border border-white/5">
-                    <div class="w-12 h-12 bg-xrom-red/10 rounded-lg flex items-center justify-center mb-6">
-                        <i data-lucide="feather" class="w-6 h-6 text-xrom-red"></i>
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-white uppercase mb-2">Миниатюра</h3>
-                    <p class="text-gray-400 text-sm mb-4">Надписи, символы, маленькие изображения до 5 см</p>
-                    <div class="text-3xl font-bold text-xrom-red mb-4">от 3 000 ₽</div>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> 1-2 часа</li>
-                        <li class="flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4"></i> Заживление 7-10 дней</li>
-                    </ul>
-                </div>
-                
-                <div class="bg-xrom-gray rounded-xl p-8 card-hover border border-white/5">
-                    <div class="w-12 h-12 bg-xrom-red/10 rounded-lg flex items-center justify-center mb-6">
-                        <i data-lucide="sun" class="w-6 h-6 text-xrom-red"></i>
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-white uppercase mb-2">Средняя работа</h3>
-                    <p class="text-gray-400 text-sm mb-4">От 10 до 20 см, цветные или черно-белые</p>
-                    <div class="text-3xl font-bold text-xrom-red mb-4">от 8 000 ₽</div>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> 3-4 часа</li>
-                        <li class="flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4"></i> 1-2 сеанса</li>
-                    </ul>
-                </div>
-                
-                <div class="bg-xrom-gray rounded-xl p-8 card-hover border border-white/5">
-                    <div class="w-12 h-12 bg-xrom-red/10 rounded-lg flex items-center justify-center mb-6">
-                        <i data-lucide="layers" class="w-6 h-6 text-xrom-red"></i>
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-white uppercase mb-2">Крупная композиция</h3>
-                    <p class="text-gray-400 text-sm mb-4">Рукава, ноги, спина. Сложные проекты</p>
-                    <div class="text-3xl font-bold text-xrom-red mb-4">от 25 000 ₽</div>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li class="flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> От 10 часов</li>
-                        <li class="flex items-center gap-2"><i data-lucide="percent" class="w-4 h-4"></i> Скидка на комплекс</li>
-                    </ul>
-                </div>
-                
-                <div class="bg-xrom-gray rounded-xl p-8 card-hover border border-white/5">
-                    <div class="w-12 h-12 bg-xrom-red/10 rounded-lg flex items-center justify-center mb-6">
-                        <i data-lucide="edit-3" class="w-6 h-6 text-xrom-red"></i>
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-white uppercase mb-2">Cover Up</h3>
-                    <p class="text-gray-400 text-sm mb-4">Перекрытие старых или неудачных татуировок</p>
-                    <div class="text-3xl font-bold text-xrom-red mb-4">от 12 000 ₽</div>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li class="flex items-center gap-2"><i data-lucide="shield" class="w-4 h-4"></i> Гарантия результата</li>
-                        <li class="flex items-center gap-2"><i data-lucide="refresh-cw" class="w-4 h-4"></i> Предварительный лазер</li>
-                    </ul>
-                </div>
-                
-                <div class="bg-xrom-gray rounded-xl p-8 card-hover border border-white/5">
-                    <div class="w-12 h-12 bg-xrom-red/10 rounded-lg flex items-center justify-center mb-6">
-                        <i data-lucide="scissors" class="w-6 h-6 text-xrom-red"></i>
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-white uppercase mb-2">Коррекция</h3>
-                    <p class="text-gray-400 text-sm mb-4">Обновление старых работ, доработка эскизов</p>
-                    <div class="text-3xl font-bold text-xrom-red mb-4">от 5 000 ₽</div>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li class="flex items-center gap-2"><i data-lucide="star" class="w-4 h-4"></i> Освежение цвета</li>
-                        <li class="flex items-center gap-2"><i data-lucide="trending-up" class="w-4 h-4"></i> Доработка линий</li>
-                    </ul>
-                </div>
-                
-                <div class="bg-xrom-gray rounded-xl p-8 card-hover border border-white/5">
-                    <div class="w-12 h-12 bg-xrom-red/10 rounded-lg flex items-center justify-center mb-6">
-                        <i data-lucide="image" class="w-6 h-6 text-xrom-red"></i>
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-white uppercase mb-2">Эскиз</h3>
-                    <p class="text-gray-400 text-sm mb-4">Индивидуальный дизайн по вашей идее</p>
-                    <div class="text-3xl font-bold text-xrom-red mb-4">от 2 000 ₽</div>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li class="flex items-center gap-2"><i data-lucide="download" class="w-4 h-4"></i> Входит в стоимость</li>
-                        <li class="flex items-center gap-2"><i data-lucide="repeat" class="w-4 h-4"></i> До 3 правок</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contacts Section -->
-    <section id="contacts" class="py-20 bg-xrom-dark border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-12">
                 <div>
-                    <h2 class="font-display text-4xl md:text-5xl font-bold text-white uppercase mb-6">Контакты</h2>
-                    <div class="w-20 h-1 bg-xrom-red mb-8"></div>
-                    
-                    <div class="space-y-6">
-                        <div class="flex items-start gap-4">
-                            <div class="w-10 h-10 bg-xrom-red/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="map-pin" class="w-5 h-5 text-xrom-red"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-medium mb-1">Адрес</h4>
-                                <p class="text-gray-400">Москва, ул. Татуировщиков, 42<br>БЦ "Инк", 3 этаж</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start gap-4">
-                            <div class="w-10 h-10 bg-xrom-red/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="phone" class="w-5 h-5 text-xrom-red"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-medium mb-1">Телефон</h4>
-                                <p class="text-gray-400">+7 (999) 123-45-67</p>
-                                <p class="text-gray-500 text-sm">Ежедневно с 11:00 до 21:00</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start gap-4">
-                            <div class="w-10 h-10 bg-xrom-red/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="mail" class="w-5 h-5 text-xrom-red"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-medium mb-1">Email</h4>
-                                <p class="text-gray-400">info@xrom-tattoo.ru</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start gap-4">
-                            <div class="w-10 h-10 bg-xrom-red/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="instagram" class="w-5 h-5 text-xrom-red"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-white font-medium mb-1">Социальные сети</h4>
-                                <div class="flex gap-4 mt-2">
-                                    <a href="#" class="w-10 h-10 bg-white/5 hover:bg-xrom-red rounded-lg flex items-center justify-center transition-colors">
-                                        <i data-lucide="instagram" class="w-5 h-5"></i>
-                                    </a>
-                                    <a href="#" class="w-10 h-10 bg-white/5 hover:bg-xrom-red rounded-lg flex items-center justify-center transition-colors">
-                                        <i data-lucide="send" class="w-5 h-5"></i>
-                                    </a>
-                                    <a href="#" class="w-10 h-10 bg-white/5 hover:bg-xrom-red rounded-lg flex items-center justify-center transition-colors">
-                                        <i data-lucide="vk" class="w-5 h-5"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <h2 class="font-bangers text-5xl text-white uppercase">О студии <span class="text-red-600">DEMON</span></h2>
+                    <div class="w-24 h-1 bg-red-600 my-4"></div>
+                    <p class="text-gray-300 text-lg">Мы — воплощение хип-хопа и дерзости. Красный чёрт — наш символ бунтарства. Создаём татуировки, которые кричат о тебе.</p>
+                    <p class="text-gray-400 mt-4">Стерильность, качество, индивидуальный подход. Работаем с cover up, реализмом, граффити-стилем.</p>
+                    <ul class="mt-6 space-y-2">
+                        <li class="flex gap-2"><i data-lucide="check-circle" class="text-red-500"></i> Бесплатная консультация</li>
+                        <li class="flex gap-2"><i data-lucide="check-circle" class="text-red-500"></i> Разработка эскиза под ключ</li>
+                        <li class="flex gap-2"><i data-lucide="check-circle" class="text-red-500"></i> Рассрочка / предоплата</li>
+                    </ul>
                 </div>
-                
-                <div class="bg-xrom-gray rounded-2xl p-8 border border-white/5">
-                    <h3 class="font-display text-2xl font-bold text-white uppercase mb-6">Быстрая запись</h3>
-                    <form id="quickContactForm" onsubmit="handleQuickSubmit(event)" class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-400 mb-2">Ваше имя</label>
-                            <input type="text" required class="w-full bg-xrom-black border border-white/10 rounded-lg px-4 py-3 text-white focus:border-xrom-red focus:outline-none transition-colors" placeholder="Александр">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-400 mb-2">Телефон</label>
-                            <input type="tel" id="quickPhone" required class="w-full bg-xrom-black border border-white/10 rounded-lg px-4 py-3 text-white focus:border-xrom-red focus:outline-none transition-colors" placeholder="+7 (___) ___-__-__">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-400 mb-2">Описание идеи</label>
-                            <textarea rows="3" class="w-full bg-xrom-black border border-white/10 rounded-lg px-4 py-3 text-white focus:border-xrom-red focus:outline-none transition-colors resize-none" placeholder="Кратко опишите идею тату..."></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-xrom-red hover:bg-red-700 text-white py-4 rounded-lg font-semibold uppercase tracking-wider transition-colors">
-                            Получить консультацию
-                        </button>
-                        <p class="text-xs text-gray-500 text-center mt-4">
-                            Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
-                        </p>
-                    </form>
+                <div class="grid grid-cols-2 gap-3">
+                    <img src="https://images.unsplash.com/photo-1582552938356-8a6d4c4e3e5c?w=400&h=500&fit=crop" class="rounded-lg border border-red-800 h-64 object-cover">
+                    <img src="https://images.unsplash.com/photo-1527689368864-3a821dbccc34?w=400&h=500&fit=crop" class="rounded-lg border border-red-800 h-64 object-cover mt-8">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=500&fit=crop" class="rounded-lg border border-red-800 h-64 object-cover -mt-8">
+                    <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&h=500&fit=crop" class="rounded-lg border border-red-800 h-64 object-cover">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-xrom-black border-t border-white/10 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 bg-xrom-red rounded-full flex items-center justify-center">
-                        <i data-lucide="pen-tool" class="w-4 h-4 text-white"></i>
-                    </div>
-                    <span class="font-display text-xl font-bold text-white tracking-wider chrome-effect">XROM</span>
+    <!-- Мастера -->
+    <section id="masters" class="py-20 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-bangers text-5xl text-white">НАШИ <span class="text-red-600">МАСТЕРА</span></h2>
+            <div class="w-24 h-1 bg-red-600 mx-auto my-4"></div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+                <div class="card-demon rounded-xl overflow-hidden bg-black/50 p-4">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-full h-64 object-cover rounded-lg grayscale hover:grayscale-0 transition">
+                    <h3 class="font-bangers text-2xl mt-3 text-white">ДЖЕЙ</h3>
+                    <p class="text-red-500 font-marker">Реализм / Портрет</p>
+                    <button onclick="selectMaster('Джей')" class="mt-3 btn-graffiti w-full py-1 rounded-full text-sm">Выбрать</button>
                 </div>
-                <p class="text-gray-500 text-sm">© 2024 XROM Tattoo Studio. Все права защищены.</p>
-                <div class="flex gap-6">
-                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Политика конфиденциальности</a>
-                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Правила студии</a>
+                <div class="card-demon rounded-xl overflow-hidden bg-black/50 p-4">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-full h-64 object-cover rounded-lg grayscale hover:grayscale-0 transition">
+                    <h3 class="font-bangers text-2xl mt-3 text-white">ЛИКА</h3>
+                    <p class="text-red-500 font-marker">Графика / Чёрная работа</p>
+                    <button onclick="selectMaster('Лика')" class="mt-3 btn-graffiti w-full py-1 rounded-full text-sm">Выбрать</button>
+                </div>
+                <div class="card-demon rounded-xl overflow-hidden bg-black/50 p-4">
+                    <img src="https://randomuser.me/api/portraits/men/45.jpg" class="w-full h-64 object-cover rounded-lg grayscale hover:grayscale-0 transition">
+                    <h3 class="font-bangers text-2xl mt-3 text-white">МАКС</h3>
+                    <p class="text-red-500 font-marker">Old School / Trash Polka</p>
+                    <button onclick="selectMaster('Макс')" class="mt-3 btn-graffiti w-full py-1 rounded-full text-sm">Выбрать</button>
+                </div>
+                <div class="card-demon rounded-xl overflow-hidden bg-black/50 p-4">
+                    <img src="https://randomuser.me/api/portraits/women/90.jpg" class="w-full h-64 object-cover rounded-lg grayscale hover:grayscale-0 transition">
+                    <h3 class="font-bangers text-2xl mt-3 text-white">ЗАРА</h3>
+                    <p class="text-red-500 font-marker">Акварель / Файнлайн</p>
+                    <button onclick="selectMaster('Зара')" class="mt-3 btn-graffiti w-full py-1 rounded-full text-sm">Выбрать</button>
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- НОВЫЙ БЛОК: Стили тату с фильтрацией (вместо старой галереи) -->
+    <section id="styles" class="py-20 bg-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="font-bangers text-5xl text-center text-white uppercase">СТИЛИ <span class="text-red-600">ТАТУИРОВОК</span></h2>
+            <div class="w-24 h-1 bg-red-600 mx-auto my-4"></div>
+            <div class="flex flex-wrap justify-center gap-3 mt-8">
+                <button data-filter="all" class="filter-btn active bg-red-600 text-white px-5 py-2 rounded-full font-bold">Все</button>
+                <button data-filter="realism" class="filter-btn bg-transparent border border-red-600 text-white px-5 py-2 rounded-full font-bold hover:bg-red-600 transition">Реализм</button>
+                <button data-filter="graphic" class="filter-btn bg-transparent border border-red-600 text-white px-5 py-2 rounded-full font-bold hover:bg-red-600 transition">Графика</button>
+                <button data-filter="oldschool" class="filter-btn bg-transparent border border-red-600 text-white px-5 py-2 rounded-full font-bold hover:bg-red-600 transition">Old School</button>
+                <button data-filter="trash" class="filter-btn bg-transparent border border-red-600 text-white px-5 py-2 rounded-full font-bold hover:bg-red-600 transition">Trash Polka</button>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mt-10" id="style-gallery">
+                <!-- Реализм -->
+                <div class="style-item realism rounded-lg overflow-hidden border border-red-800 group">
+                    <img src="https://images.unsplash.com/photo-1564047851402-0b6fa2d8f1e2?w=400&h=400&fit=crop" class="w-full h-64 object-cover transition group-hover:scale-105">
+                    <div class="p-3 bg-black/80 text-center"><span class="text-red-500 font-bold">Реализм</span> - портрет</div>
+                </div>
+                <div class="style-item realism rounded-lg overflow-hidden border border-red-800 group">
+                    <img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&h=400&fit=crop" class="w-full h-64 object-cover transition group-hover:scale-105">
+                    <div class="p-3 bg-black/80 text-center"><span class="text-red-500 font-bold">Реализм</span> - животные</div>
+                </div>
+                <!-- Графика -->
+                <div class="style-item graphic rounded-lg overflow-hidden border border-red-800 group">
+                    <img src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=400&h=400&fit=crop" class="w-full h-64 object-cover transition group-hover:scale-105">
+                    <div class="p-3 bg-black/80 text-center"><span class="text-red-500 font-bold">Графика</span> - чёрно-белая</div>
+                </div>
+                <div class="style-item graphic rounded-lg overflow-hidden border border-red-800 group">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=400&fit=crop" class="w-full h-64 object-cover transition group-hover:scale-105">
+                    <div class="p-3 bg-black/80 text-center"><span class="text-red-500 font-bold">Графика</span> - геометрия</div>
+                </div>
+                <!-- Old School -->
+                <div class="style-item oldschool rounded-lg overflow-hidden border border-red-800 group">
+                    <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&h=400&fit=crop" class="w-full h-64 object-cover transition group-hover:scale-105">
+                    <div class="p-3 bg-black/80 text-center"><span class="text-red-500 font-bold">Old School</span> - якорь</div>
+                </div>
+                <div class="style-item oldschool rounded-lg overflow-hidden border border-red-800 group">
+                    <img src="https://images.unsplash.com/photo-1527689368864-3a821dbccc34?w=400&h=400&fit=crop" class="w-full h-64 object-cover transition group-hover:scale-105">
+                    <div class="p-3 bg-black/80 text-center"><span class="text-red-500 font-bold">Old School</span> - роза</div>
+                </div>
+                <!-- Trash Polka -->
+                <div class="style-item trash rounded-lg overflow-hidden border border-red-800 group">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=400&fit=crop" class="w-full h-64 object-cover transition group-hover:scale-105">
+                    <div class="p-3 bg-black/80 text-center"><span class="text-red-500 font-bold">Trash Polka</span> - абстракция</div>
+                </div>
+                <div class="style-item trash rounded-lg overflow-hidden border border-red-800 group">
+                    <img src="https://images.unsplash.com/photo-1582552938356-8a6d4c4e3e5c?w=400&h=400&fit=crop" class="w-full h-64 object-cover transition group-hover:scale-105">
+                    <div class="p-3 bg-black/80 text-center"><span class="text-red-500 font-bold">Trash Polka</span> - портрет</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- НОВЫЙ БЛОК: Интерактивная карта боли -->
+    <section id="painmap" class="py-20 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-bangers text-5xl text-white uppercase">КАРТА <span class="text-red-600">БОЛИ</span></h2>
+            <div class="w-24 h-1 bg-red-600 mx-auto my-4"></div>
+            <p class="text-gray-400 max-w-2xl mx-auto mb-10">Нажмите на любую часть тела, чтобы узнать уровень боли (от 1 до 10).</p>
+            <div class="flex flex-col md:flex-row gap-8 justify-center items-center">
+                <div class="relative w-full max-w-md">
+                    <svg viewBox="0 0 300 500" class="w-full h-auto" id="bodyPainMap">
+                        <circle cx="150" cy="50" r="30" fill="#1a1a1a" stroke="#ff1a4f" stroke-width="2" data-part="head" class="body-part cursor-pointer transition hover:fill-red-800/50" />
+                        <rect x="110" y="90" width="80" height="80" rx="10" fill="#1a1a1a" stroke="#ff1a4f" stroke-width="2" data-part="chest" class="body-part cursor-pointer transition hover:fill-red-800/50" />
+                        <rect x="110" y="175" width="80" height="80" rx="10" fill="#1a1a1a" stroke="#ff1a4f" stroke-width="2" data-part="belly" class="body-part cursor-pointer transition hover:fill-red-800/50" />
+                        <path d="M110 100 L70 80 L50 110 L60 140 L90 150" fill="none" stroke="#ff1a4f" stroke-width="8" stroke-linecap="round" data-part="left-arm" class="body-part cursor-pointer transition hover:stroke-red-600" />
+                        <path d="M190 100 L230 80 L250 110 L240 140 L210 150" fill="none" stroke="#ff1a4f" stroke-width="8" stroke-linecap="round" data-part="right-arm" class="body-part cursor-pointer transition hover:stroke-red-600" />
+                        <path d="M130 260 L120 340 L100 420" fill="none" stroke="#ff1a4f" stroke-width="10" stroke-linecap="round" data-part="left-leg" class="body-part cursor-pointer transition hover:stroke-red-600" />
+                        <path d="M170 260 L180 340 L200 420" fill="none" stroke="#ff1a4f" stroke-width="10" stroke-linecap="round" data-part="right-leg" class="body-part cursor-pointer transition hover:stroke-red-600" />
+                        <rect x="110" y="250" width="80" height="50" rx="5" fill="#1a1a1a" stroke="#ff1a4f" stroke-width="2" data-part="back" class="body-part cursor-pointer transition hover:fill-red-800/50" />
+                    </svg>
+                </div>
+                <div class="bg-black border border-red-600 rounded-2xl p-6 max-w-sm w-full">
+                    <h3 class="font-bangers text-2xl text-white">Уровень боли</h3>
+                    <div id="painResult" class="mt-4"><p class="text-gray-400">Нажмите на часть тела</p></div>
+                    <div class="mt-4 text-sm text-gray-500">* Шкала от 1 (почти не больно) до 10 (очень больно)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Услуги и цены -->
+    <section id="services" class="py-20 bg-black">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-bangers text-5xl text-center text-white">УСЛУГИ <span class="text-red-600">И ЦЕНЫ</span></h2>
+            <div class="w-24 h-1 bg-red-600 mx-auto my-4"></div>
+            <div class="grid md:grid-cols-3 gap-6 mt-10">
+                <div class="card-demon p-6 rounded-xl bg-black/50"><div class="w-12 h-12 bg-red-600/20 rounded-full flex items-center justify-center"><i data-lucide="feather" class="text-red-500"></i></div><h3 class="font-bangers text-2xl mt-3">Миниатюра</h3><p class="text-gray-400">до 5 см</p><div class="text-3xl font-bold text-red-500 my-2">от 3 000 ₽</div><button onclick="openBookingModal()" class="btn-graffiti w-full py-2 rounded-full text-sm">Записаться</button></div>
+                <div class="card-demon p-6 rounded-xl bg-black/50"><div class="w-12 h-12 bg-red-600/20 rounded-full flex items-center justify-center"><i data-lucide="sun" class="text-red-500"></i></div><h3 class="font-bangers text-2xl mt-3">Средняя</h3><p class="text-gray-400">10-20 см</p><div class="text-3xl font-bold text-red-500 my-2">от 8 000 ₽</div><button onclick="openBookingModal()" class="btn-graffiti w-full py-2 rounded-full text-sm">Записаться</button></div>
+                <div class="card-demon p-6 rounded-xl bg-black/50"><div class="w-12 h-12 bg-red-600/20 rounded-full flex items-center justify-center"><i data-lucide="layers" class="text-red-500"></i></div><h3 class="font-bangers text-2xl mt-3">Рукав / Спина</h3><p class="text-gray-400">сложные проекты</p><div class="text-3xl font-bold text-red-500 my-2">от 25 000 ₽</div><button onclick="openBookingModal()" class="btn-graffiti w-full py-2 rounded-full text-sm">Записаться</button></div>
+                <div class="card-demon p-6 rounded-xl bg-black/50"><div class="w-12 h-12 bg-red-600/20 rounded-full flex items-center justify-center"><i data-lucide="edit-3" class="text-red-500"></i></div><h3 class="font-bangers text-2xl mt-3">Cover Up</h3><p class="text-gray-400">перекрытие</p><div class="text-3xl font-bold text-red-500 my-2">от 12 000 ₽</div><button onclick="openBookingModal()" class="btn-graffiti w-full py-2 rounded-full text-sm">Записаться</button></div>
+                <div class="card-demon p-6 rounded-xl bg-black/50"><div class="w-12 h-12 bg-red-600/20 rounded-full flex items-center justify-center"><i data-lucide="scissors" class="text-red-500"></i></div><h3 class="font-bangers text-2xl mt-3">Коррекция</h3><p class="text-gray-400">обновление</p><div class="text-3xl font-bold text-red-500 my-2">от 5 000 ₽</div><button onclick="openBookingModal()" class="btn-graffiti w-full py-2 rounded-full text-sm">Записаться</button></div>
+                <div class="card-demon p-6 rounded-xl bg-black/50"><div class="w-12 h-12 bg-red-600/20 rounded-full flex items-center justify-center"><i data-lucide="image" class="text-red-500"></i></div><h3 class="font-bangers text-2xl mt-3">Эскиз</h3><p class="text-gray-400">индивидуальный</p><div class="text-3xl font-bold text-red-500 my-2">от 2 000 ₽</div><button onclick="openBookingModal()" class="btn-graffiti w-full py-2 rounded-full text-sm">Записаться</button></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты + быстрая запись -->
+    <section id="contacts" class="py-20 bg-zinc-950 border-t border-red-800">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12">
+            <div>
+                <h2 class="font-bangers text-5xl text-white">КОНТАКТЫ</h2>
+                <div class="w-20 h-1 bg-red-600 my-4"></div>
+                <div class="space-y-5 mt-6">
+                    <div class="flex gap-3"><i data-lucide="map-pin" class="text-red-500"></i><div><p class="font-bold">Адрес</p><p class="text-gray-400">Москва, ул. Хип-Хоп, 13</p></div></div>
+                    <div class="flex gap-3"><i data-lucide="phone" class="text-red-500"></i><div><p class="font-bold">Телефон</p><p class="text-gray-400">+7 (999) 666-42-42</p></div></div>
+                    <div class="flex gap-3"><i data-lucide="mail" class="text-red-500"></i><div><p class="font-bold">Email</p><p class="text-gray-400">demon@tattoo.ru</p></div></div>
+                    <div class="flex gap-3"><i data-lucide="instagram" class="text-red-500"></i><div><p class="font-bold">Instagram</p><p class="text-gray-400">@demon_tattoo</p></div></div>
+                </div>
+            </div>
+            <div class="bg-black p-6 rounded-xl border border-red-800">
+                <h3 class="font-bangers text-3xl text-white">БЫСТРАЯ ЗАПИСЬ</h3>
+                <form id="quickForm" class="mt-4 space-y-4" onsubmit="quickSubmit(event)">
+                    <input type="text" placeholder="Ваше имя" required class="w-full bg-zinc-900 border border-red-800 rounded-lg p-3 text-white">
+                    <input type="tel" id="quickPhone" placeholder="Телефон" required class="w-full bg-zinc-900 border border-red-800 rounded-lg p-3 text-white">
+                    <textarea rows="3" placeholder="Идея тату..." class="w-full bg-zinc-900 border border-red-800 rounded-lg p-3 text-white"></textarea>
+                    <button type="submit" class="btn-graffiti w-full py-3 rounded-lg font-bold">ОТПРАВИТЬ</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black border-t border-red-800 py-6 text-center text-gray-500">
+        <p>© 2025 DEMON TATTOO — Хип-хоп тату студия. Все права защищены.</p>
     </footer>
 
-    <!-- Booking Modal -->
+    <!-- Модальное окно записи (оставлено как в вашем коде, здесь краткая заглушка) -->
     <div id="bookingModal" class="fixed inset-0 z-[60] hidden modal-backdrop overflow-y-auto">
-        <div class="min-h-screen px-4 text-center flex items-center justify-center">
-            <div class="fixed inset-0 transition-opacity" onclick="closeBookingModal()"></div>
-            
-            <div class="inline-block w-full max-w-4xl my-8 text-left align-middle transition-all transform bg-xrom-dark border border-white/10 rounded-2xl shadow-2xl overflow-hidden relative">
-                <!-- Modal Header -->
-                <div class="bg-xrom-gray px-6 py-4 border-b border-white/10 flex items-center justify-between">
-                    <h3 class="font-display text-2xl font-bold text-white uppercase flex items-center gap-2">
-                        <i data-lucide="calendar-plus" class="w-6 h-6 text-xrom-red"></i>
-                        Онлайн-запись
-                    </h3>
-                    <button onclick="closeBookingModal()" class="text-gray-400 hover:text-white transition-colors">
-                        <i data-lucide="x" class="w-6 h-6"></i>
-                    </button>
-                </div>
-                
-                <!-- Booking Steps -->
-                <div class="p-6 md:p-8">
-                    <!-- Progress -->
-                    <div class="mb-8">
-                        <div class="flex items-center justify-between mb-2">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full bg-xrom-red text-white flex items-center justify-center text-sm font-bold" id="step1-indicator">1</div>
-                                <span class="text-sm font-medium text-white">Услуга</span>
-                            </div>
-                            <div class="flex-1 h-0.5 mx-4 bg-white/10" id="line1"></div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full bg-white/10 text-gray-400 flex items-center justify-center text-sm font-bold" id="step2-indicator">2</div>
-                                <span class="text-sm font-medium text-gray-400">Мастер</span>
-                            </div>
-                            <div class="flex-1 h-0.5 mx-4 bg-white/10" id="line2"></div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full bg-white/10 text-gray-400 flex items-center justify-center text-sm font-bold" id="step3-indicator">3</div>
-                                <span class="text-sm font-medium text-gray-400">Дата</span>
-                            </div>
-                            <div class="flex-1 h-0.5 mx-4 bg-white/10" id="line3"></div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full bg-white/10 text-gray-400 flex items-center justify-center text-sm font-bold" id="step4-indicator">4</div>
-                                <span class="text-sm font-medium text-gray-400">Контакты</span>
-                            </div>
-                        </div>
+        <div class="min-h-screen px-4 flex items-center justify-center">
+            <div class="fixed inset-0" onclick="closeBookingModal()"></div>
+            <div class="relative bg-black border-2 border-red-600 rounded-2xl max-w-3xl w-full p-6 md:p-8">
+                <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-gray-400 hover:text-red-500"><i data-lucide="x" class="w-6 h-6"></i></button>
+                <h2 class="font-bangers text-3xl text-white">ЗАПИСЬ <span class="text-red-600">ОНЛАЙН</span></h2>
+                <div class="mt-6">
+                    <!-- Шаги (оставьте из вашего рабочего кода) -->
+                    <div class="flex justify-between mb-6">
+                        <div class="flex items-center"><div id="step1-badge" class="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center font-bold">1</div><span class="ml-2">Услуга</span></div>
+                        <div class="flex-1 h-0.5 mx-2 bg-gray-700" id="line1"></div>
+                        <div class="flex items-center"><div id="step2-badge" class="w-8 h-8 rounded-full bg-gray-700 text-gray-300 flex items-center justify-center font-bold">2</div><span class="ml-2">Мастер</span></div>
+                        <div class="flex-1 h-0.5 mx-2 bg-gray-700" id="line2"></div>
+                        <div class="flex items-center"><div id="step3-badge" class="w-8 h-8 rounded-full bg-gray-700 text-gray-300 flex items-center justify-center font-bold">3</div><span class="ml-2">Дата</span></div>
+                        <div class="flex-1 h-0.5 mx-2 bg-gray-700" id="line3"></div>
+                        <div class="flex items-center"><div id="step4-badge" class="w-8 h-8 rounded-full bg-gray-700 text-gray-300 flex items-center justify-center font-bold">4</div><span class="ml-2">Контакты</span></div>
                     </div>
-                    
-                    <!-- Step 1: Service Selection -->
-                    <div id="step1" class="space-y-4 fade-in">
-                        <h4 class="text-lg font-medium text-white mb-4">Выберите тип татуировки</h4>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div class="service-card cursor-pointer p-4 rounded-lg border border-white/10 bg-xrom-black/50 hover:border-xrom-red/50 transition-all" onclick="selectService('mini', 'Миниатюра (до 5 см)', 3000)">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h5 class="font-medium text-white">Миниатюра</h5>
-                                    <span class="text-xrom-red font-bold">от 3 000 ₽</span>
-                                </div>
-                                <p class="text-sm text-gray-400">Надписи, символы, маленькие изображения до 5 см</p>
-                            </div>
-                            <div class="service-card cursor-pointer p-4 rounded-lg border border-white/10 bg-xrom-black/50 hover:border-xrom-red/50 transition-all" onclick="selectService('medium', 'Средняя работа (10-20 см)', 8000)">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h5 class="font-medium text-white">Средняя работа</h5>
-                                    <span class="text-xrom-red font-bold">от 8 000 ₽</span>
-                                </div>
-                                <p class="text-sm text-gray-400">От 10 до 20 см, цветные или черно-белые</p>
-                            </div>
-                            <div class="service-card cursor-pointer p-4 rounded-lg border border-white/10 bg-xrom-black/50 hover:border-xrom-red/50 transition-all" onclick="selectService('large', 'Крупная композиция', 25000)">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h5 class="font-medium text-white">Крупная композиция</h5>
-                                    <span class="text-xrom-red font-bold">от 25 000 ₽</span>
-                                </div>
-                                <p class="text-sm text-gray-400">Рукава, ноги, спина. Сложные проекты</p>
-                            </div>
-                            <div class="service-card cursor-pointer p-4 rounded-lg border border-white/10 bg-xrom-black/50 hover:border-xrom-red/50 transition-all" onclick="selectService('cover', 'Перекрытие (Cover Up)', 12000)">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h5 class="font-medium text-white">Cover Up</h5>
-                                    <span class="text-xrom-red font-bold">от 12 000 ₽</span>
-                                </div>
-                                <p class="text-sm text-gray-400">Перекрытие старых или неудачных татуировок</p>
-                            </div>
-                        </div>
-                        <div class="mt-6 flex justify-end">
-                            <button onclick="nextStep(2)" class="bg-xrom-red hover:bg-red-700 text-white px-6 py-2.5 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed" id="btn-step1" disabled>
-                                Далее →
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Step 2: Master Selection -->
-                    <div id="step2" class="space-y-4 hidden">
-                        <h4 class="text-lg font-medium text-white mb-4">Выберите мастера</h4>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div class="service-card cursor-pointer p-4 rounded-lg border border-white/10 bg-xrom-black/50 hover:border-xrom-red/50 transition-all flex items-center gap-4" onclick="selectMasterOption('Алексей', 'realism')">
-                                <img src="http://static.photos/people/100x100/11" class="w-16 h-16 rounded-full object-cover grayscale">
-                                <div>
-                                    <h5 class="font-medium text-white">Алексей</h5>
-                                    <p class="text-sm text-xrom-red">Realism / Black&Grey</p>
-                                </div>
-                            </div>
-                            <div class="service-card cursor-pointer p-4 rounded-lg border border-white/10 bg-xrom-black/50 hover:border-xrom-red/50 transition-all flex items-center gap-4" onclick="selectMasterOption('Мария', 'watercolor')">
-                                <img src="http://static.photos/people/100x100/12" class="w-16 h-16 rounded-full object-cover grayscale">
-                                <div>
-                                    <h5 class="font-medium text-white">Мария</h5>
-                                    <p class="text-sm text-xrom-red">Watercolor / Fine Line</p>
-                                </div>
-                            </div>
-                            <div class="service-card cursor-pointer p-4 rounded-lg border border-white/10 bg-xrom-black/50 hover:border-xrom-red/50 transition-all flex items-center gap-4" onclick="selectMasterOption('Дмитрий', 'trash')">
-                                <img src="http://static.photos/people/100x100/13" class="w-16 h-16 rounded-full object-cover grayscale">
-                                <div>
-                                    <h5 class="font-medium text-white">Дмитрий</h5>
-                                    <p class="text-sm text-xrom-red">Trash Polka / Graphic</p>
-                                </div>
-                            </div>
-                            <div class="service-card cursor-pointer p-4 rounded-lg border border-white/10 bg-xrom-black/50 hover:border-xrom-red/50 transition-all flex items-center gap-4" onclick="selectMasterOption('Виктор', 'oldschool')">
-                                <img src="http://static.photos/people/100x100/14" class="w-16 h-16 rounded-full object-cover grayscale">
-                                <div>
-                                    <h5 class="font-medium text-white">Виктор</h5>
-                                    <p class="text-sm text-xrom-red">Old School / Neo-Traditional</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-6 flex justify-between">
-                            <button onclick="prevStep(1)" class="border border-white/20 hover:border-white text-white px-6 py-2.5 rounded-lg font-medium transition-colors">
-                                ← Назад
-                            </button>
-                            <button onclick="nextStep(3)" class="bg-xrom-red hover:bg-red-700 text-white px-6 py-2.5 rounded-lg font-medium transition-colors disabled:opacity-50" id="btn-step2" disabled>
-                                Далее →
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Step 3: Date & Time -->
-                    <div id="step3" class="space-y-4 hidden">
-                        <h4 class="text-lg font-medium text-white mb-4">Выберите дату и время</h4>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-400 mb-2">Дата</label>
-                                <input type="date" id="bookingDate" min="" class="w-full bg-xrom-black border border-white/10 rounded-lg px-4 py-3 text-white focus:border-xrom-red focus:outline-none" onchange="onDateChange()">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-400 mb-2">Время сеанса</label>
-                                <div class="grid grid-cols-3 gap-2" id="timeSlots">
-                                    <!-- Generated by JS -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-4 p-4 bg-xrom-black/50 rounded-lg border border-white/5">
-                            <p class="text-sm text-gray-400">
-                                <i data-lucide="info" class="w-4 h-4 inline mr-2"></i>
-                                Выбрано: <span id="selectedDateTime" class="text-white">—</span>
-                            </p>
-                        </div>
-                        <div class="mt-6 flex justify-between">
-                            <button onclick="prevStep(2)" class="border border-white/20 hover:border-white text-white px-6 py-2.5 rounded-lg font-medium transition-colors">
-                                ← Назад
-                            </button>
-                            <button onclick="nextStep(4)" class="bg-xrom-red hover:bg-red-700 text-white px-6 py-2.5 rounded-lg font-medium transition-colors disabled:opacity-50" id="btn-step3" disabled>
-                                Далее →
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Step 4: Contact Info -->
-                    <div id="step4" class="space-y-4 hidden">
-                        <h4 class="text-lg font-medium text-white mb-4">Ваши контактные данные</h4>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div class="md:col-span-2">
-                                <label class="block text-sm font-medium text-gray-400 mb-2">Имя *</label>
-                                <input type="text" id="clientName" required class="w-full bg-xrom-black border border-white/10 rounded-lg px-4 py-3 text-white focus:border-xrom-red focus:outline-none" placeholder="Александр">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-400 mb-2">Телефон *</label>
-                                <input type="tel" id="clientPhone" required class="w-full bg-xrom-black border border-white/10 rounded-lg px-4 py-3 text-white focus:border-xrom-red focus:outline-none" placeholder="+7 (999) 123-45-67">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-400 mb-2">Email</label>
-                                <input type="email" id="clientEmail" class="w-full bg-xrom-black border border-white/10 rounded-lg px-4 py-3 text-white focus:border-xrom-red focus:outline-none" placeholder="mail@example.com">
-                            </div>
-                            <div class="md:col-span-2">
-                                <label class="block text-sm font-medium text-gray-400 mb-2">Описание идеи / Комментарий</label>
-                                <textarea id="clientComment" rows="3" class="w-full bg-xrom-black border border-white/10 rounded-lg px-4 py-3 text-white focus:border-xrom-red focus:outline-none resize-none" placeholder="Опишите вашу идею, приложите ссылки на референсы..."></textarea>
-                            </div>
-                        </div>
-                        
-                        <!-- Summary -->
-                        <div class="mt-6 p-4 bg-xrom-black/50 rounded-lg border border-xrom-red/20">
-                            <h5 class="font-medium text-white mb-2">Подтвердите запись:</h5>
-                            <div class="space-y-1 text-sm">
-                                <div class="flex justify-between"><span class="text-gray-400">Услуга:</span> <span class="text-white" id="summaryService">—</span></div>
-                                <div class="flex justify-between"><span class="text-gray-400">Мастер:</span> <span class="text-white" id="summaryMaster">—</span></div>
-                                <div class="flex justify-between"><span class="text-gray-400">Дата и время:</span> <span class="text-white" id="summaryDateTime">—</span></div>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-6 flex justify-between">
-                            <button onclick="prevStep(3)" class="border border-white/20 hover:border-white text-white px-6 py-2.5 rounded-lg font-medium transition-colors">
-                                ← Назад
-                            </button>
-                            <button onclick="submitBooking()" class="bg-xrom-red hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold uppercase tracking-wider transition-colors flex items-center gap-2">
-                                <i data-lucide="check" class="w-5 h-5"></i>
-                                Подтвердить запись
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Success Message -->
-                    <div id="bookingSuccess" class="hidden text-center py-12">
-                        <div class="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="check-circle" class="w-10 h-10 text-green-500"></i>
-                        </div>
-                        <h4 class="text-2xl font-bold text-white mb-2">Заявка отправлена!</h4>
-                        <p class="text-gray-400 mb-6">Мы свяжемся с вами в течение 24 часов для подтверждения записи.</p>
-                        <button onclick="closeBookingModal()" class="bg-white/10 hover:bg-white/20 text-white px-6 py-2.5 rounded-lg font-medium transition-colors">
-                            Закрыть
-                        </button>
-                    </div>
+                    <div id="step1_modal"><h3 class="text-xl font-bold text-white">Выберите услугу</h3><div class="grid md:grid-cols-2 gap-3 mt-4"><div onclick="selectServiceModal('Миниатюра')" class="service-card-modal p-3 border border-gray-700 rounded-lg cursor-pointer hover:border-red-500"><span class="font-bold">Миниатюра</span><span class="float-right text-red-500">от 3 000₽</span></div><div onclick="selectServiceModal('Средняя')" class="service-card-modal p-3 border border-gray-700 rounded-lg cursor-pointer hover:border-red-500"><span class="font-bold">Средняя</span><span class="float-right text-red-500">от 8 000₽</span></div><div onclick="selectServiceModal('Крупная')" class="service-card-modal p-3 border border-gray-700 rounded-lg cursor-pointer hover:border-red-500"><span class="font-bold">Крупная</span><span class="float-right text-red-500">от 25 000₽</span></div><div onclick="selectServiceModal('Cover Up')" class="service-card-modal p-3 border border-gray-700 rounded-lg cursor-pointer hover:border-red-500"><span class="font-bold">Cover Up</span><span class="float-right text-red-500">от 12 000₽</span></div></div><button onclick="nextStepModal(2)" id="nextStep1" class="mt-6 btn-graffiti px-6 py-2 rounded-lg float-right" disabled>Далее →</button></div>
+                    <div id="step2_modal" class="hidden"><h3 class="text-xl font-bold text-white">Выберите мастера</h3><div class="grid grid-cols-2 gap-3 mt-4"><div onclick="selectMasterModal('Джей')" class="master-card p-2 border border-gray-700 rounded-lg text-center cursor-pointer hover:border-red-500"><img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-16 h-16 rounded-full mx-auto"><span class="block mt-1">Джей</span></div><div onclick="selectMasterModal('Лика')" class="master-card p-2 border border-gray-700 rounded-lg text-center cursor-pointer hover:border-red-500"><img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-16 h-16 rounded-full mx-auto"><span class="block mt-1">Лика</span></div><div onclick="selectMasterModal('Макс')" class="master-card p-2 border border-gray-700 rounded-lg text-center cursor-pointer hover:border-red-500"><img src="https://randomuser.me/api/portraits/men/45.jpg" class="w-16 h-16 rounded-full mx-auto"><span class="block mt-1">Макс</span></div><div onclick="selectMasterModal('Зара')" class="master-card p-2 border border-gray-700 rounded-lg text-center cursor-pointer hover:border-red-500"><img src="https://randomuser.me/api/portraits/women/90.jpg" class="w-16 h-16 rounded-full mx-auto"><span class="block mt-1">Зара</span></div></div><div class="flex justify-between mt-6"><button onclick="prevStepModal(1)" class="border border-gray-600 px-4 py-2 rounded-lg">← Назад</button><button id="nextStep2" onclick="nextStepModal(3)" class="btn-graffiti px-6 py-2 rounded-lg" disabled>Далее →</button></div></div>
+                    <div id="step3_modal" class="hidden"><h3 class="text-xl font-bold text-white">Выберите дату и время</h3><div class="grid md:grid-cols-2 gap-4 mt-4"><input type="date" id="bookingDate" class="bg-black border border-gray-700 rounded-lg p-2 text-white"><div id="timeSlotsModal" class="grid grid-cols-3 gap-2"></div></div><div class="flex justify-between mt-6"><button onclick="prevStepModal(2)" class="border border-gray-600 px-4 py-2 rounded-lg">← Назад</button><button id="nextStep3" onclick="nextStepModal(4)" class="btn-graffiti px-6 py-2 rounded-lg" disabled>Далее →</button></div></div>
+                    <div id="step4_modal" class="hidden"><h3 class="text-xl font-bold text-white">Ваши данные</h3><div class="space-y-3 mt-4"><input type="text" id="clientName" placeholder="Имя *" class="w-full bg-black border border-gray-700 rounded-lg p-2 text-white"><input type="tel" id="clientPhone" placeholder="Телефон *" class="w-full bg-black border border-gray-700 rounded-lg p-2 text-white"><input type="email" id="clientEmail" placeholder="Email" class="w-full bg-black border border-gray-700 rounded-lg p-2 text-white"><textarea id="clientComment" placeholder="Комментарий" rows="2" class="w-full bg-black border border-gray-700 rounded-lg p-2 text-white"></textarea></div><div class="flex justify-between mt-6"><button onclick="prevStepModal(3)" class="border border-gray-600 px-4 py-2 rounded-lg">← Назад</button><button onclick="submitBookingModal()" class="btn-graffiti px-6 py-2 rounded-lg">ПОДТВЕРДИТЬ</button></div></div>
+                    <div id="success_modal" class="hidden text-center py-8"><i data-lucide="check-circle" class="w-16 h-16 text-green-500 mx-auto"></i><h3 class="text-2xl font-bold mt-4">Заявка отправлена!</h3><p class="text-gray-400">Мы свяжемся с вами в течение 24 часов.</p><button onclick="closeBookingModal()" class="btn-graffiti mt-6 px-6 py-2 rounded-lg">Закрыть</button></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Подключение скриптов -->
     <script src="script.js"></script>
-    <script>
-        lucide.createIcons();
-    </script>
+    <script>document.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); initStyleFilter(); initPainMap(); });</script>
 </body>
 </html>

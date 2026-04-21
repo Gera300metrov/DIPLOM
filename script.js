@@ -1,263 +1,212 @@
-'use strict'
-// Booking System State
-let bookingState = {
-    service: null,
-    serviceName: null,
-    servicePrice: null,
-    master: null,
-    masterStyle: null,
-    date: null,
-    time: null
-};
+// Состояние бронирования
+let booking = { service: null, master: null, date: null, time: null };
+let currentModalStep = 1;
 
-let currentStep = 1;
+function toggleMobileMenu() {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+}
+function openBookingModal() {
+    document.getElementById('bookingModal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    resetModal();
+}
+function closeBookingModal() {
+    document.getElementById('bookingModal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+function resetModal() {
+    booking = { service: null, master: null, date: null, time: null };
+    currentModalStep = 1;
+    document.getElementById('step1_modal').classList.remove('hidden');
+    document.getElementById('step2_modal').classList.add('hidden');
+    document.getElementById('step3_modal').classList.add('hidden');
+    document.getElementById('step4_modal').classList.add('hidden');
+    document.getElementById('success_modal').classList.add('hidden');
+    document.querySelectorAll('.service-card-modal').forEach(c => c.classList.remove('border-red-500'));
+    document.querySelectorAll('.master-card').forEach(c => c.classList.remove('border-red-500'));
+    document.getElementById('nextStep1').disabled = true;
+    document.getElementById('nextStep2').disabled = true;
+    document.getElementById('nextStep3').disabled = true;
+    updateModalProgress(1);
+}
+function updateModalProgress(step) {
+    for (let i = 1; i <= 4; i++) {
+        let badge = document.getElementById(`step${i}-badge`);
+        if (i < step) {
+            badge.classList.remove('bg-gray-700', 'text-gray-300');
+            badge.classList.add('bg-green-600', 'text-white');
+            badge.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i>';
+        } else if (i === step) {
+            badge.classList.remove('bg-gray-700', 'text-gray-300');
+            badge.classList.add('bg-red-600', 'text-white');
+            badge.innerHTML = i;
+        } else {
+            badge.classList.remove('bg-red-600', 'bg-green-600', 'text-white');
+            badge.classList.add('bg-gray-700', 'text-gray-300');
+            badge.innerHTML = i;
+        }
+    }
+    let line1 = document.getElementById('line1'), line2 = document.getElementById('line2'), line3 = document.getElementById('line3');
+    if (step > 1) line1.classList.add('bg-red-600'); else line1.classList.remove('bg-red-600');
+    if (step > 2) line2.classList.add('bg-red-600'); else line2.classList.remove('bg-red-600');
+    if (step > 3) line3.classList.add('bg-red-600'); else line3.classList.remove('bg-red-600');
+    if (window.lucide) lucide.createIcons();
+}
+function selectServiceModal(service) {
+    booking.service = service;
+    document.querySelectorAll('.service-card-modal').forEach(c => c.classList.remove('border-red-500'));
+    event.currentTarget.classList.add('border-red-500');
+    document.getElementById('nextStep1').disabled = false;
+}
+function selectMasterModal(master) {
+    booking.master = master;
+    document.querySelectorAll('.master-card').forEach(c => c.classList.remove('border-red-500'));
+    event.currentTarget.classList.add('border-red-500');
+    document.getElementById('nextStep2').disabled = false;
+}
+function nextStepModal(step) {
+    document.getElementById(`step${currentModalStep}_modal`).classList.add('hidden');
+    document.getElementById(`step${step}_modal`).classList.remove('hidden');
+    currentModalStep = step;
+    updateModalProgress(step);
+    if (step === 3) generateTimeSlotsModal();
+    if (window.lucide) lucide.createIcons();
+}
+function prevStepModal(step) {
+    document.getElementById(`step${currentModalStep}_modal`).classList.add('hidden');
+    document.getElementById(`step${step}_modal`).classList.remove('hidden');
+    currentModalStep = step;
+    updateModalProgress(step);
+    if (window.lucide) lucide.createIcons();
+}
+function generateTimeSlotsModal() {
+    const container = document.getElementById('timeSlotsModal');
+    if (!container) return;
+    container.innerHTML = '';
+    const times = ['11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'];
+    times.forEach(time => {
+        const btn = document.createElement('button');
+        btn.textContent = time;
+        btn.className = 'slot-time border border-gray-700 rounded-lg py-1 text-sm bg-black text-white hover:border-red-500';
+        btn.onclick = function() {
+            document.querySelectorAll('#timeSlotsModal button').forEach(b => b.classList.remove('selected', 'bg-red-600', 'text-white'));
+            this.classList.add('selected', 'bg-red-600', 'text-white');
+            booking.time = time;
+            document.getElementById('nextStep3').disabled = false;
+        };
+        container.appendChild(btn);
+    });
+    const dateInput = document.getElementById('bookingDate');
+    if (dateInput) dateInput.onchange = () => { booking.date = dateInput.value; };
+}
+function submitBookingModal() {
+    const name = document.getElementById('clientName').value;
+    const phone = document.getElementById('clientPhone').value;
+    if (!name || !phone || !booking.service || !booking.master || !booking.date || !booking.time) {
+        alert('Заполните все поля и выберите услугу/мастера/время');
+        return;
+    }
+    document.getElementById('step4_modal').classList.add('hidden');
+    document.getElementById('success_modal').classList.remove('hidden');
+    if (window.lucide) lucide.createIcons();
+    setTimeout(() => { closeBookingModal(); }, 3000);
+}
+function quickSubmit(e) {
+    e.preventDefault();
+    alert('Спасибо! Мы перезвоним вам.');
+    document.getElementById('quickForm').reset();
+}
+function selectMaster(name) {
+    openBookingModal();
+    setTimeout(() => {
+        const masterDiv = Array.from(document.querySelectorAll('.master-card')).find(el => el.innerText.includes(name));
+        if (masterDiv) masterDiv.click();
+        nextStepModal(2);
+    }, 200);
+}
 
-document.addEventListener('DOMContentLoaded', function() {
+// === НОВЫЕ ФУНКЦИИ: фильтрация стилей ===
+function initStyleFilter() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const items = document.querySelectorAll('.style-item');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.getAttribute('data-filter');
+            items.forEach(item => {
+                if (filter === 'all' || item.classList.contains(filter)) {
+                    item.classList.remove('hide');
+                } else {
+                    item.classList.add('hide');
+                }
+            });
+        });
+    });
+}
+
+// === НОВЫЕ ФУНКЦИИ: карта боли ===
+function initPainMap() {
+    const painData = {
+        head: { name: "Голова", level: 8, description: "Очень чувствительная зона, боль выше среднего" },
+        chest: { name: "Грудная клетка", level: 7, description: "Кости близко к коже, ощутимо" },
+        belly: { name: "Живот", level: 6, description: "Средняя боль, но зависит от веса" },
+        back: { name: "Спина / Поясница", level: 5, description: "Терпимо, но длительные сеансы утомляют" },
+        'left-arm': { name: "Левая рука (плечо/предплечье)", level: 4, description: "Одна из наименее болезненных зон" },
+        'right-arm': { name: "Правая рука (плечо/предплечье)", level: 4, description: "Аналогично левой" },
+        'left-leg': { name: "Левая нога (голень/бедро)", level: 5, description: "Мышцы смягчают боль, но кости голени чувствительны" },
+        'right-leg': { name: "Правая нога (голень/бедро)", level: 5, description: "То же, что и левая" }
+    };
+    const parts = document.querySelectorAll('.body-part');
+    const resultDiv = document.getElementById('painResult');
+    parts.forEach(part => {
+        part.addEventListener('click', (e) => {
+            const partKey = part.getAttribute('data-part');
+            const data = painData[partKey];
+            if (data) {
+                let stars = '';
+                for (let i = 1; i <= 10; i++) stars += i <= data.level ? '🔥' : '⚫';
+                resultDiv.innerHTML = `<div class="bg-red-900/30 p-3 rounded-lg"><p class="text-xl font-bold text-white">${data.name}</p><p class="text-2xl text-red-500 my-2">${data.level} / 10</p><p class="text-sm text-gray-300">${stars}</p><p class="text-sm text-gray-400 mt-2">${data.description}</p></div>`;
+            } else {
+                resultDiv.innerHTML = `<p class="text-gray-400">Информация скоро появится</p>`;
+            }
+        });
+    });
+}
+
+// Инициализация при загрузке
+document.addEventListener('DOMContentLoaded', () => {
     const dateInput = document.getElementById('bookingDate');
     if (dateInput) {
         const today = new Date().toISOString().split('T')[0];
         dateInput.min = today;
     }
-    
     const phoneInputs = document.querySelectorAll('input[type="tel"]');
-    phoneInputs.forEach(input => {
-        input.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 0) {
-                if (value[0] === '7' || value[0] === '8') {
-                    value = value.substring(1);
-                }
+    phoneInputs.forEach(inp => {
+        inp.addEventListener('input', function(e) {
+            let val = e.target.value.replace(/\D/g,'');
+            if (val.length > 0) {
+                if (val[0] === '7' || val[0] === '8') val = val.substring(1);
                 let formatted = '+7';
-                if (value.length > 0) {
-                    formatted += ' (' + value.substring(0, 3);
-                }
-                if (value.length >= 3) {
-                    formatted += ') ' + value.substring(3, 6);
-                }
-                if (value.length >= 6) {
-                    formatted += '-' + value.substring(6, 8);
-                }
-                if (value.length >= 8) {
-                    formatted += '-' + value.substring(8, 10);
-                }
+                if (val.length > 0) formatted += ' (' + val.substring(0,3);
+                if (val.length >= 3) formatted += ') ' + val.substring(3,6);
+                if (val.length >= 6) formatted += '-' + val.substring(6,8);
+                if (val.length >= 8) formatted += '-' + val.substring(8,10);
                 e.target.value = formatted;
             }
         });
     });
-    
     window.addEventListener('scroll', function() {
         const nav = document.getElementById('navbar');
         if (window.scrollY > 50) {
-            nav.classList.add('bg-xrom-black/95', 'backdrop-blur-md');
+            nav.classList.add('bg-black/90', 'backdrop-blur-md');
             nav.classList.remove('bg-transparent');
         } else {
-            nav.classList.remove('bg-xrom-black/95', 'backdrop-blur-md');
+            nav.classList.remove('bg-black/90', 'backdrop-blur-md');
             nav.classList.add('bg-transparent');
         }
     });
+    // Инициализация новых модулей
+    if (typeof initStyleFilter === 'function') initStyleFilter();
+    if (typeof initPainMap === 'function') initPainMap();
 });
-
-function toggleMobileMenu() {
-    const menu = document.getElementById('mobile-menu');
-    menu.classList.toggle('hidden');
-}
-
-function openBookingModal() {
-    document.getElementById('bookingModal').classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-    resetBooking();
-    lucide.createIcons();
-}
-
-function closeBookingModal() {
-    document.getElementById('bookingModal').classList.add('hidden');
-    document.body.style.overflow = 'auto';
-}
-
-function resetBooking() {
-    bookingState = {
-        service: null,
-        serviceName: null,
-        servicePrice: null,
-        master: null,
-        masterStyle: null,
-        date: null,
-        time: null
-    };
-    currentStep = 1;
-    
-    document.getElementById('step1').classList.remove('hidden');
-    document.getElementById('step2').classList.add('hidden');
-    document.getElementById('step3').classList.add('hidden');
-    document.getElementById('step4').classList.add('hidden');
-    document.getElementById('bookingSuccess').classList.add('hidden');
-    
-    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
-    
-    document.getElementById('btn-step1').disabled = true;
-    document.getElementById('btn-step2').disabled = true;
-    document.getElementById('btn-step3').disabled = true;
-    
-    updateProgress(1);
-}
-
-function nextStep(step) {
-    document.getElementById(`step${currentStep}`).classList.add('hidden');
-    document.getElementById(`step${step}`).classList.remove('hidden');
-    document.getElementById(`step${step}`).classList.add('fade-in');
-    
-    updateProgress(step);
-    currentStep = step;
-    lucide.createIcons();
-}
-
-function prevStep(step) {
-    document.getElementById(`step${currentStep}`).classList.add('hidden');
-    document.getElementById(`step${step}`).classList.remove('hidden');
-    document.getElementById(`step${step}`).classList.add('fade-in');
-    
-    updateProgress(step);
-    currentStep = step;
-    lucide.createIcons();
-}
-
-function updateProgress(step) {
-    for (let i = 1; i <= 4; i++) {
-        const indicator = document.getElementById(`step${i}-indicator`);
-        if (i < step) {
-            indicator.className = 'w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-bold';
-            indicator.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i>';
-        } else if (i === step) {
-            indicator.className = 'w-8 h-8 rounded-full bg-xrom-red text-white flex items-center justify-center text-sm font-bold';
-            indicator.innerHTML = i;
-        } else {
-            indicator.className = 'w-8 h-8 rounded-full bg-white/10 text-gray-400 flex items-center justify-center text-sm font-bold';
-            indicator.innerHTML = i;
-        }
-    }
-    
-    const line1 = document.getElementById('line1');
-    const line2 = document.getElementById('line2');
-    const line3 = document.getElementById('line3');
-    
-    if (step > 1) line1.classList.add('bg-xrom-red');
-    else line1.classList.remove('bg-xrom-red');
-    
-    if (step > 2) line2.classList.add('bg-xrom-red');
-    else line2.classList.remove('bg-xrom-red');
-    
-    if (step > 3) line3.classList.add('bg-xrom-red');
-    else line3.classList.remove('bg-xrom-red');
-    
-    lucide.createIcons();
-}
-
-function selectService(id, name, price) {
-    bookingState.service = id;
-    bookingState.serviceName = name;
-    bookingState.servicePrice = price;
-    
-    document.querySelectorAll('#step1 .service-card').forEach(card => {
-        card.classList.remove('selected');
-    });
-    event.currentTarget.classList.add('selected');
-    
-    document.getElementById('btn-step1').disabled = false;
-}
-
-function selectMasterOption(name, style) {
-    bookingState.master = name;
-    bookingState.masterStyle = style;
-    
-    document.querySelectorAll('#step2 .service-card').forEach(card => {
-        card.classList.remove('selected');
-    });
-    event.currentTarget.classList.add('selected');
-    
-    document.getElementById('btn-step2').disabled = false;
-}
-
-function selectMaster(name) {
-    openBookingModal();
-    bookingState.master = name;
-    setTimeout(() => {
-        nextStep(2);
-        const cards = document.querySelectorAll('#step2 .service-card');
-        cards.forEach(card => {
-            if (card.textContent.includes(name)) {
-                card.click();
-            }
-        });
-    }, 200);
-}
-
-function onDateChange() {
-    const date = document.getElementById('bookingDate').value;
-    bookingState.date = date;
-    generateTimeSlots();
-}
-
-function generateTimeSlots() {
-    const container = document.getElementById('timeSlots');
-    container.innerHTML = '';
-    
-    const times = ['11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
-    const disabledTimes = Math.random() > 0.5 ? ['14:00', '17:00'] : ['12:00', '16:00'];
-    
-    times.forEach(time => {
-        const isDisabled = disabledTimes.includes(time);
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = `booking-slot border border-white/10 rounded-lg py-2 text-sm font-medium ${isDisabled ? 'disabled text-gray-500' : 'text-gray-300 bg-xrom-black hover:border-xrom-red'}`;
-        btn.textContent = time;
-        btn.disabled = isDisabled;
-        
-        if (!isDisabled) {
-            btn.onclick = function() {
-                document.querySelectorAll('.booking-slot').forEach(s => s.classList.remove('selected'));
-                this.classList.add('selected');
-                bookingState.time = time;
-                document.getElementById('selectedDateTime').textContent = `${formatDate(bookingState.date)} в ${time}`;
-                document.getElementById('btn-step3').disabled = false;
-            };
-        }
-        
-        container.appendChild(btn);
-    });
-}
-
-function formatDate(dateString) {
-    if (!dateString) return '—';
-    const date = new Date(dateString);
-    const options = { day: 'numeric', month: 'long', year: 'numeric' };
-    return date.toLocaleDateString('ru-RU', options);
-}
-
-function submitBooking() {
-    const name = document.getElementById('clientName').value;
-    const phone = document.getElementById('clientPhone').value;
-    
-    if (!name || !phone) {
-        alert('Пожалуйста, заполните обязательные поля');
-        return;
-    }
-    
-    document.getElementById('summaryService').textContent = bookingState.serviceName || '—';
-    document.getElementById('summaryMaster').textContent = bookingState.master || '—';
-    document.getElementById('summaryDateTime').textContent = bookingState.date && bookingState.time ? `${formatDate(bookingState.date)} в ${bookingState.time}` : '—';
-    
-    const submitBtn = document.querySelector('#step4 button[type="button"]');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Отправка...';
-    submitBtn.disabled = true;
-    lucide.createIcons();
-    
-    setTimeout(() => {
-        document.getElementById('step4').classList.add('hidden');
-        document.getElementById('bookingSuccess').classList.remove('hidden');
-        lucide.createIcons();
-        
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-    }, 1500);
-}
