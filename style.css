@@ -45,11 +45,8 @@ h1, h2, h3, h4,
     background: rgba(0, 0, 0, 0.6);
     z-index: 0;
 }
-.hero-dragon h1 {
-    color: var(--gold) !important;
-    text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-    letter-spacing: 4px;
-}
+
+
 
 /* Кнопка */
 .btn-outline-gold {
@@ -68,23 +65,38 @@ h1, h2, h3, h4,
 }
 
 /* Карточки */
-.card-dragon {
-    background: #0f0f0f;
-    border-left: 4px solid var(--gold);
-    transition: 0.3s;
-}
-.card-dragon:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3);
-    border-left-color: #ffdf7e;
+/* Новые карточки мастеров с оверлеем */
+.master-card-new {
+    transition: all 0.3s ease;
 }
 
-.hover-card {
-    transition: transform 0.2s ease-out, box-shadow 0.3s;
+.master-card-new:hover {
+    transform: translateY(-4px);
 }
-.hover-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 30px rgba(212, 175, 55, 0.2);
+
+/* Градиент поверх фото, чтобы имя читалось */
+.master-card-new .absolute.inset-0.bg-gradient-to-t {
+    pointer-events: none;
+}
+
+/* Кнопка в оверлее выглядит аккуратно */
+.master-card-new .btn-outline-gold {
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+}
+
+/* Если не используется плавающий эффект, можно полностью отключить старые .hover-card */
+.hover-card {
+    transform: none !important;
+}
+/* Карточки мастеров с золотой рамкой */
+.card-dragon {
+    transition: all 0.3s ease;
+}
+.card-dragon:hover {
+    border-color: var(--gold) !important;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+    transform: translateY(-5px);
 }
 
 /* Слоты времени */
@@ -152,8 +164,128 @@ h1, h2, h3, h4,
     filter: drop-shadow(0 0 8px var(--gold));
 }
 
+/* Дополнительный класс для золотой рамки в модалке */
+.border-gold-500 {
+    border-color: var(--gold) !important;
+}
+
 @media (max-width: 768px) {
     .hero-dragon h1 {
         font-size: 3rem;
     }
 }
+.bg-gold-500 {
+    background-color: #d4af37 !important;
+}
+.bg-gold-600 {
+    background-color: #b8960c !important;
+}
+/* Золотой цвет для текста */
+.text-gold-500 {
+    color: #d4af37 !important;
+}
+/* Кастомизация Swiper — золотые стрелки и точки */
+.swiper-button-prev,
+.swiper-button-next {
+    color: #d4af37 !important;
+    background: rgba(0,0,0,0.5);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+    background: #d4af37 !important;
+    color: #000 !important;
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+    font-size: 20px !important;
+    font-weight: bold;
+}
+.swiper-pagination-bullet {
+    background: #555 !important;
+    opacity: 1;
+}
+.swiper-pagination-bullet-active {
+    background: #d4af37 !important;
+}
+/* Анимация для появления результата */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+/* Улучшенные стили для частей тела при наведении */
+.body-part {
+    transition: all 0.2s ease;
+}
+/* Глобально убираем скругления у всех элементов */
+* {
+    border-radius: 0 !important;
+}
+/* Оставляем круглые аватарки мастеров */
+.master-card img,
+#step2_modal img {
+    border-radius: 9999px !important;
+}
+/* Универсальные классы для фона */
+.bg-img { background-size: cover; background-position: center; background-repeat: no-repeat; }
+.bg-img-dark { background-size: cover; background-position: center; background-repeat: no-repeat; position: relative; z-index: 0; }
+.bg-img-dark::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.7); z-index: -1; }
+/* Серебряный металлик для цен */
+.text-silver {
+    background: linear-gradient(135deg, #272727 0%, #ffffff 40%, #3f3f3f 60%, #e0e0e0 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 5px rgba(192,192,192,0.3);
+}
+/* Золотой металлик для заголовков */
+.text-gold-metal {
+    background: linear-gradient(135deg, #f5e7a3 0%, #d4af37 30%, #f9e77a 50%, #b8960c 80%, #e6c84d 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+}
+/* Единый фон для всех блоков, кроме Hero */
+section:not(.hero-dragon) {
+    background-image: url('image/zoloto122121212121.png') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    position: relative;
+    z-index: 0;
+}
+
+/* Затемнение, чтобы текст читался */
+section:not(.hero-dragon)::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+}
+section:not(.hero-dragon):not(footer) {
+    border-bottom: 1px solid var(--gold);
+}
+.btn-gold-metal {
+    background: linear-gradient(135deg, #f5e7a3, #d4af37, #f9e77a, #b8960c, #e6c84d);
+    background-size: 200% auto;
+    color: black;
+    font-weight: bold;
+    border: none;
+    box-shadow: 0 0 8px rgba(212,175,55,0.5);
+    transition: 0.3s;
+}
+.btn-gold-metal:hover {
+    background-position: right center;
+    box-shadow: 0 0 15px rgba(212,175,55,0.8);
+    transform: translateY(-2px);
+}
+

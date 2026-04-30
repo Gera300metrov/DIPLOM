@@ -8,23 +8,30 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <!-- Шапка: чёрная, непрозрачная, только текст -->
-    <nav class="fixed w-full z-50 bg-black border-b border-gold-600 transition-all duration-300" id="navbar">
+    <nav class="fixed w-full z-50 bg-black border-b border-gold-500 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <div class="hidden md:flex items-center space-x-10">
                     <a href="#about" class="nav-link text-sm font-medium text-white hover:text-gold-400 transition">О НАС</a>
                     <a href="#masters" class="nav-link text-sm font-medium text-white hover:text-gold-400 transition">МАСТЕРА</a>
-                    <a href="#styles" class="nav-link text-sm font-medium text-white hover:text-gold-400 transition">СТИЛИ</a>
-                    <a href="#painmap" class="nav-link text-sm font-medium text-white hover:text-gold-400 transition">КАРТА БОЛИ</a>
-                    <a href="#services" class="nav-link text-sm font-medium text-white hover:text-gold-400 transition">УСЛУГИ</a>
+                    <a href="#styles" class="nav-link text-sm font-medium text-white hover:text-gold-400 transition">НАШИ РАБОТЫ</a>
+                    <a href="#services-pain" class="nav-link text-sm font-medium text-white hover:text-gold-400 transition">УСЛУГИ И КАРТА</a>
                     <a href="#contacts" class="nav-link text-sm font-medium text-white hover:text-gold-400 transition">КОНТАКТЫ</a>
                 </div>
-                <button onclick="openBookingModal()" class="btn-outline-gold px-5 py-2 rounded-full text-sm hidden md:block">ЗАПИСАТЬСЯ</button>
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="tel:+79996664242" class="text-gold-500 hover:text-gold-400 transition flex items-center gap-2">
+                        <i data-lucide="phone" class="w-4 h-4"></i>
+                        <span>+7 (999) 666-42-42</span>
+                    </a>
+                    <button onclick="openBookingModal()" class="btn-outline-gold px-5 py-2 rounded-full text-sm">ЗАПИСАТЬСЯ</button>
+                </div>
                 <button class="md:hidden text-white" onclick="toggleMobileMenu()"><i data-lucide="menu" class="w-6 h-6 text-gold-500"></i></button>
             </div>
         </div>
@@ -32,9 +39,8 @@
             <div class="px-4 pt-2 pb-6 space-y-3">
                 <a href="#about" class="block text-white hover:text-gold-400">О НАС</a>
                 <a href="#masters" class="block text-white hover:text-gold-400">МАСТЕРА</a>
-                <a href="#styles" class="block text-white hover:text-gold-400">СТИЛИ</a>
-                <a href="#painmap" class="block text-white hover:text-gold-400">КАРТА БОЛИ</a>
-                <a href="#services" class="block text-white hover:text-gold-400">УСЛУГИ</a>
+                <a href="#styles" class="block text-white hover:text-gold-400">НАШИ РАБОТЫ</a>
+                <a href="#services-pain" class="block text-white hover:text-gold-400">УСЛУГИ И КАРТА</a>
                 <a href="#contacts" class="block text-white hover:text-gold-400">КОНТАКТЫ</a>
                 <button onclick="openBookingModal()" class="btn-outline-gold w-full py-2 rounded-full">ЗАПИСАТЬСЯ</button>
             </div>
@@ -43,153 +49,325 @@
 
     <!-- Hero секция (фон меняется через style) -->
      
-    <section class="hero-dragon min-h-screen flex items-center justify-center relative" id="hero" style="background-image: url('image/67.jpg'); background-size: cover; background-position: center;">
-        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
-            <div class="mb-6">
-                <img src="image/картинка для лого.jpg" alt="DRAGON TATTOO" class="mx-auto w-48 md:w-64">
-            </div>
-            <h1 class="font-title text-6xl md:text-7xl text-gold-500 tracking-wider mb-6">DRAGON TATTOO</h1>
-            <div class="flex flex-col sm:flex-row gap-5 justify-center">
-                <button onclick="openBookingModal()" class="btn-outline-gold px-8 py-4 rounded-full text-lg flex items-center gap-2 justify-center"><i data-lucide="calendar"></i> ОНЛАЙН-ЗАПИСЬ</button>
-                <a href="#styles" class="btn-outline-gold px-8 py-4 rounded-full text-lg font-medium transition">СМОТРЕТЬ СТИЛИ</a>
-            </div>
+    <!-- Hero секция (фон меняется через style) -->
+    <section class="hero-dragon min-h-screen flex items-center justify-center relative border-b border-gold-500" id="hero" style="background-image: url('image/67.jpg'); background-size: cover; background-position: center;">
+    <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+        <div class="mb-6">
+            <img src="image/картинка для лого.jpg" alt="DRAGON TATTOO" class="mx-auto w-48 md:w-64">
+            <!-- Мини-текст между логотипом и заголовком -->
+            <p class="text-gold-500 text-sm tracking-widest mt-3 uppercase">Premium Studio</p>
         </div>
-        <div class="absolute bottom-5 left-1/2 transform -translate-x-1/2 animate-bounce"><i data-lucide="chevron-down" class="text-gold-500 w-6 h-6"></i></div>
-    </section>
+        <h1 class="font-title text-5xl md:text-6xl text-gold-metal tracking-wider mb-6">DRAGON TATTOO</h1>
+        <div class="flex flex-col sm:flex-row gap-5 justify-center">
+            <button onclick="openBookingModal()" class="btn-gold-metal px-8 py-4 rounded-full text-lg flex items-center gap-2 justify-center"><i data-lucide="calendar"></i> ОНЛАЙН-ЗАПИСЬ</button>
+<a href="#styles" class="btn-gold-metal px-8 py-4 rounded-full text-lg flex items-center gap-2 justify-center">СМОТРЕТЬ СТИЛИ</a>
+        </div>
+    </div>
+    <!-- Удалена стрелка вниз (animate-bounce) -->
+</section>
 
     <!-- О студии (пример с фоновым изображением) -->
-    <section id="about" class="py-20 bg-image" style="background-image: url('image/studio-bg.jpg');">
+    <section id="about" class="py-20 bg-img-dark relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Левая колонка: текст -->
                 <div>
-                    <h2 class="font-title text-5xl text-white uppercase">О студии <span class="text-gold-500">DRAGON</span></h2>
+                    <h2 class="font-title text-5xl text-white uppercase">О студии <span class="text-gold-metal">DRAGON</span></h2>
                     <div class="w-24 h-1 bg-gold-500 my-4"></div>
-                    <p class="text-gray-300 text-lg">Мы — воплощение силы и стиля. Дракон — наш символ могущества. Создаём татуировки, которые подчеркивают твою индивидуальность.</p>
-                    <p class="text-gray-400 mt-4">Стерильность, качество, индивидуальный подход. Работаем с cover up, реализмом, геометрией.</p>
-                    <ul class="mt-6 space-y-2">
-                        <li class="flex gap-2"><i data-lucide="check-circle" class="text-gold-500"></i> Бесплатная консультация</li>
-                        <li class="flex gap-2"><i data-lucide="check-circle" class="text-gold-500"></i> Разработка эскиза под ключ</li>
-                        <li class="flex gap-2"><i data-lucide="check-circle" class="text-gold-500"></i> Рассрочка / предоплата</li>
-                    </ul>
+                    <p class="text-gray-300 text-lg leading-relaxed">Мы — воплощение силы и стиля. Дракон — наш символ могущества. Создаём татуировки, которые подчеркивают твою индивидуальность.</p>
+                    
+                    <!-- Блок преимуществ (как карточки) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-full bg-gold-500/20 flex items-center justify-center shrink-0"><i data-lucide="award" class="text-gold-500 w-5 h-5"></i></div>
+                            <div><h4 class="font-title text-xl text-white">5+ лет</h4><p class="text-gray-400 text-sm">опыта в индустрии</p></div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-full bg-gold-500/20 flex items-center justify-center shrink-0"><i data-lucide="users" class="text-gold-500 w-5 h-5"></i></div>
+                            <div><h4 class="font-title text-xl text-white">4 мастеров</h4><p class="text-gray-400 text-sm">профессионалов своего дела</p></div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-full bg-gold-500/20 flex items-center justify-center shrink-0"><i data-lucide="heart" class="text-gold-500 w-5 h-5"></i></div>
+                            <div><h4 class="font-title text-xl text-white">1000+ тату</h4><p class="text-gray-400 text-sm">созданных с душой</p></div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-full bg-gold-500/20 flex items-center justify-center shrink-0"><i data-lucide="shield" class="text-gold-500 w-5 h-5"></i></div>
+                            <div><h4 class="font-title text-xl text-white">100% стерильность</h4><p class="text-gray-400 text-sm">безопасность превыше всего</p></div>
+                        </div>
+                    </div>
+    
+                    <!-- Доп. текст про cover up и т.д. -->
+                    <div class="mt-8 p-4 border-l-2 border-gold-500 bg-white/5 rounded-r-lg">
+                        <p class="text-gray-300 text-sm italic">"Индивидуальный подход, разработка эскиза и рассрочка — всё для твоего комфорта."</p>
+                    </div>
                 </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <img src="image/2.jpg" class="rounded-lg border border-gold-800 h-64 object-cover ">
-                    <img src="image/1.jpg" class="rounded-lg border border-gold-800 h-64 object-cover ">
-                    <img src="image/3.jpg" class="rounded-lg border border-gold-800 h-64 object-cover ">
-                    <img src="image/4.jpg" class="rounded-lg border border-gold-800 h-64 object-cover">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Мастера -->
-    <section id="masters" class="py-20 bg-image" style="background-image: url('image/studio-bg.jpg');">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="font-title text-5xl text-white">НАШИ <span class="text-gold-500">МАСТЕРА</span></h2>
-            <div class="w-24 h-1 bg-gold-500 mx-auto my-4"></div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12" id="masters-grid">
-                <div class="card-dragon rounded-xl overflow-hidden bg-black/50 p-4 hover-card">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-full h-64 object-cover rounded-lg grayscale hover:grayscale-0 transition">
-                    <h3 class="font-title text-2xl mt-3 text-white">АРТЁМ</h3>
-                    <p class="text-gold-400">Реализм / Портрет</p>
-                    <button onclick="selectMaster('Артём')" class="mt-3 btn-outline-gold w-full py-1 rounded-full text-sm">Выбрать</button>
-                </div>
-                <div class="card-dragon rounded-xl overflow-hidden bg-black/50 p-4 hover-card">
-                    <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-full h-64 object-cover rounded-lg grayscale hover:grayscale-0 transition">
-                    <h3 class="font-title text-2xl mt-3 text-white">ЕЛЕНА</h3>
-                    <p class="text-gold-400">Графика / Чёрная работа</p>
-                    <button onclick="selectMaster('Елена')" class="mt-3 btn-outline-gold w-full py-1 rounded-full text-sm">Выбрать</button>
-                </div>
-                <div class="card-dragon rounded-xl overflow-hidden bg-black/50 p-4 hover-card">
-                    <img src="https://randomuser.me/api/portraits/men/45.jpg" class="w-full h-64 object-cover rounded-lg grayscale hover:grayscale-0 transition">
-                    <h3 class="font-title text-2xl mt-3 text-white">ДМИТРИЙ</h3>
-                    <p class="text-gold-400">Old School / Trash Polka</p>
-                    <button onclick="selectMaster('Дмитрий')" class="mt-3 btn-outline-gold w-full py-1 rounded-full text-sm">Выбрать</button>
-                </div>
-                <div class="card-dragon rounded-xl overflow-hidden bg-black/50 p-4 hover-card">
-                    <img src="https://randomuser.me/api/portraits/women/90.jpg" class="w-full h-64 object-cover rounded-lg grayscale hover:grayscale-0 transition">
-                    <h3 class="font-title text-2xl mt-3 text-white">АННА</h3>
-                    <p class="text-gold-400">Акварель / Файнлайн</p>
-                    <button onclick="selectMaster('Анна')" class="mt-3 btn-outline-gold w-full py-1 rounded-full text-sm">Выбрать</button>
+    
+                <!-- Правая колонка: слайдер -->
+                <div class="relative">
+                    <div id="about-slider" class="relative overflow-hidden rounded-2xl shadow-2xl">
+                        <div class="flex transition-transform duration-500 ease-in-out" id="slider-track">
+                            <img src="image/3 о студии.jpg" alt="Интерьер студии" class="w-full h-[400px] object-cover flex-shrink-0">
+                            <img src="image/2 о студии.jpg" alt="Работа мастера" class="w-full h-[400px] object-cover flex-shrink-0">
+                            <img src="image/1о студии.jpg" alt="Процесс тату" class="w-full h-[400px] object-cover flex-shrink-0">
+                            <img src="image/4 о студии.jpg" alt="Готовая работа" class="w-full h-[400px] object-cover flex-shrink-0">
+                        </div>
+                        <!-- Кнопки навигации -->
+                        <button id="slider-prev" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-gold-500 text-white hover:text-black rounded-full p-2 transition"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+                        <button id="slider-next" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-gold-500 text-white hover:text-black rounded-full p-2 transition"><i data-lucide="chevron-right" class="w-5 h-5"></i></button>
+                        <!-- Индикаторы (точки) -->
+                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2" id="slider-dots"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Мастера (исправленный дизайн) -->
+    <section id="masters" class="py-20 bg-img-dark relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="font-title text-5xl text-white">НАШИ <span class="text-gold-metal">МАСТЕРА</span></h2>
+        <div class="w-24 h-1 bg-gold-500 mx-auto my-4"></div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+
+            <!-- Мастер 1: Артём -->
+            <div class="master-card group rounded-xl overflow-hidden bg-black/50 border border-gold-500 transition-all duration-300 hover:border-gold-400 hover:shadow-xl">
+                <div class="relative h-80 overflow-hidden">
+                    <img src="image/мужек44.jpg" alt="Артём" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <!-- Оверлей с миниатюрами появляется при наведении -->
+                    <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center p-4">
+                        <p class="text-gold-500 font-bold mb-2">Примеры работ:</p>
+                        <div class="flex gap-2">
+                            <img src="image/реализм1.jpg" onclick="openImageViewer('image/реализм1.jpg')" class="w-16 h-16 rounded-lg object-cover border border-gold-400 cursor-pointer transition hover:scale-105">
+                            <img src="image/реализм2.jpg" onclick="openImageViewer('image/реализм2.jpg')" class="w-16 h-16 rounded-lg object-cover border border-gold-400 cursor-pointer transition hover:scale-105">
+                            <img src="image/реализм3.png" onclick="openImageViewer('image/реализм3.png')" class="w-16 h-16 rounded-lg object-cover border border-gold-400 cursor-pointer transition hover:scale-105">
+                        </div>
+                        <!-- Кнопка теперь внутри оверлея, но оверлей не исчезнет, потому что мы добавили CSS-правило (см. ниже) -->
+                        <button onclick="selectMaster('Артём')" class="mt-4 btn-outline-gold px-4 py-1 rounded-full text-sm">Записаться</button>
+                    </div>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-title text-2xl text-white">АРТЁМ</h3>
+                    <p class="text-gold-400 text-sm">Реализм / Портрет</p>
+                </div>
+            </div>
+
+            <!-- Мастер 2: Елена -->
+            <div class="master-card group rounded-xl overflow-hidden bg-black/50 border border-gold-500 transition-all duration-300 hover:border-gold-400 hover:shadow-xl">
+                <div class="relative h-80 overflow-hidden">
+                    <img src="image/девушка 1.jpg" alt="Елена" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center p-4">
+                        <p class="text-gold-500 font-bold mb-2">Примеры работ:</p>
+                        <div class="flex gap-2">
+                            <img src="image/графика1.jpg" onclick="openImageViewer('image/графика1.jpg')" class="w-16 h-16 rounded-lg object-cover border border-gold-400 cursor-pointer transition hover:scale-105">
+                            <img src="image/график2.jpg" onclick="openImageViewer('image/график2.jpg')" class="w-16 h-16 rounded-lg object-cover border border-gold-400 cursor-pointer transition hover:scale-105">
+                        </div>
+                        <button onclick="selectMaster('Елена')" class="mt-4 btn-outline-gold px-4 py-1 rounded-full text-sm">Записаться</button>
+                    </div>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-title text-2xl text-white">ЕЛЕНА</h3>
+                    <p class="text-gold-400 text-sm">Графика / Чёрная работа</p>
+                </div>
+            </div>
+
+            <!-- Мастер 3: Дмитрий -->
+            <div class="master-card group rounded-xl overflow-hidden bg-black/50 border border-gold-500 transition-all duration-300 hover:border-gold-400 hover:shadow-xl">
+                <div class="relative h-80 overflow-hidden">
+                    <img src="image/Саша.jpg" alt="Дмитрий" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center p-4">
+                        <p class="text-gold-500 font-bold mb-2">Примеры работ:</p>
+                        <div class="flex gap-2">
+                            <img src="image/олдскул1.jpg" onclick="openImageViewer('image/олдскул1.jpg')" class="w-16 h-16 rounded-lg object-cover border border-gold-400 cursor-pointer transition hover:scale-105">
+                            <img src="image/олдскул2.jpg" onclick="openImageViewer('image/олдскул2.jpg')" class="w-16 h-16 rounded-lg object-cover border border-gold-400 cursor-pointer transition hover:scale-105">
+                        </div>
+                        <button onclick="selectMaster('Дмитрий')" class="mt-4 btn-outline-gold px-4 py-1 rounded-full text-sm">Записаться</button>
+                    </div>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-title text-2xl text-white">ДМИТРИЙ</h3>
+                    <p class="text-gold-400 text-sm">Олдскул / Треш-Полька</p>
+                </div>
+            </div>
+
+            <!-- Мастер 4: Анна -->
+            <div class="master-card group rounded-xl overflow-hidden bg-black/50 border border-gold-500 transition-all duration-300 hover:border-gold-400 hover:shadow-xl">
+                <div class="relative h-80 overflow-hidden">
+                    <img src="image/katja-442x600.jpg" alt="Анна" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center p-4">
+                        <p class="text-gold-500 font-bold mb-2">Примеры работ:</p>
+                        <div class="flex gap-2">
+                            <img src="image/файф1.jpg" onclick="openImageViewer('image/файф1.jpg')" class="w-16 h-16 rounded-lg object-cover border border-gold-400 cursor-pointer transition hover:scale-105">
+                            <img src="image/файф2.jpg" onclick="openImageViewer('image/файф2.jpg')" class="w-16 h-16 rounded-lg object-cover border border-gold-400 cursor-pointer transition hover:scale-105">
+                            <img src="image/файф3.webp" onclick="openImageViewer('image/файф3.webp')" class="w-16 h-16 rounded-lg object-cover border border-gold-400 cursor-pointer transition hover:scale-105">
+                        </div>
+                        <button onclick="selectMaster('Анна')" class="mt-4 btn-outline-gold px-4 py-1 rounded-full text-sm">Записаться</button>
+                    </div>
+                </div>
+                <div class="p-4 text-center">
+                    <h3 class="font-title text-2xl text-white">АННА</h3>
+                    <p class="text-gold-400 text-sm">Акварель / Файнлайн</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
     <!-- Стили тату (фильтрация) -->
-    <section id="styles" class="py-20 bg-black/90">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="font-title text-5xl text-center text-white">СТИЛИ <span class="text-gold-500">ТАТУИРОВОК</span></h2>
-            <div class="w-24 h-1 bg-gold-500 mx-auto my-4"></div>
-            <div class="flex flex-wrap justify-center gap-3 mt-8">
-                <button data-filter="all" class="filter-btn active bg-gold-600 text-black px-5 py-2 rounded-full font-bold">Все</button>
-                <button data-filter="realism" class="filter-btn bg-transparent border border-gold-500 text-white px-5 py-2 rounded-full font-bold hover:bg-gold-600 hover:text-black transition">Реализм</button>
-                <button data-filter="graphic" class="filter-btn bg-transparent border border-gold-500 text-white px-5 py-2 rounded-full font-bold hover:bg-gold-600 hover:text-black transition">Графика</button>
-                <button data-filter="oldschool" class="filter-btn bg-transparent border border-gold-500 text-white px-5 py-2 rounded-full font-bold hover:bg-gold-600 hover:text-black transition">Old School</button>
-                <button data-filter="trash" class="filter-btn bg-transparent border border-gold-500 text-white px-5 py-2 rounded-full font-bold hover:bg-gold-600 hover:text-black transition">Trash Polka</button>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mt-10" id="style-gallery">
-                <div class="style-item realism rounded-lg overflow-hidden border border-gold-800 group"><img src="https://images.unsplash.com/photo-1564047851402-0b6fa2d8f1e2?w=400&h=400&fit=crop" class="w-full h-64 object-cover transition group-hover:scale-105"><div class="p-3 bg-black/80 text-center"><span class="text-gold-500 font-bold">Реализм</span> - портрет</div></div>
-                <div class="style-item realism rounded-lg overflow-hidden border border-gold-800 group"><img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&h=400&fit=crop" class="w-full h-64 object-cover transition group-hover:scale-105"><div class="p-3 bg-black/80 text-center"><span class="text-gold-500 font-bold">Реализм</span> - животные</div></div>
-                <div class="style-item graphic rounded-lg overflow-hidden border border-gold-800 group"><img src="https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=400&h=400&fit=crop" class="w-full h-64 object-cover transition group-hover:scale-105"><div class="p-3 bg-black/80 text-center"><span class="text-gold-500 font-bold">Графика</span> - чёрно-белая</div></div>
-                <div class="style-item graphic rounded-lg overflow-hidden border border-gold-800 group"><img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=400&fit=crop" class="w-full h-64 object-cover transition group-hover:scale-105"><div class="p-3 bg-black/80 text-center"><span class="text-gold-500 font-bold">Графика</span> - геометрия</div></div>
-                <div class="style-item oldschool rounded-lg overflow-hidden border border-gold-800 group"><img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=400&h=400&fit=crop" class="w-full h-64 object-cover transition group-hover:scale-105"><div class="p-3 bg-black/80 text-center"><span class="text-gold-500 font-bold">Old School</span> - якорь</div></div>
-                <div class="style-item oldschool rounded-lg overflow-hidden border border-gold-800 group"><img src="https://images.unsplash.com/photo-1527689368864-3a821dbccc34?w=400&h=400&fit=crop" class="w-full h-64 object-cover transition group-hover:scale-105"><div class="p-3 bg-black/80 text-center"><span class="text-gold-500 font-bold">Old School</span> - роза</div></div>
-                <div class="style-item trash rounded-lg overflow-hidden border border-gold-800 group"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=400&fit=crop" class="w-full h-64 object-cover transition group-hover:scale-105"><div class="p-3 bg-black/80 text-center"><span class="text-gold-500 font-bold">Trash Polka</span> - абстракция</div></div>
-                <div class="style-item trash rounded-lg overflow-hidden border border-gold-800 group"><img src="https://images.unsplash.com/photo-1582552938356-8a6d4c4e3e5c?w=400&h=400&fit=crop" class="w-full h-64 object-cover transition group-hover:scale-105"><div class="p-3 bg-black/80 text-center"><span class="text-gold-500 font-bold">Trash Polka</span> - портрет</div></div>
-            </div>
-        </div>
-    </section>
+    <!-- ГАЛЕРЕЯ РАБОТ (Swiper) -->
+    <section id="styles" class="py-20 bg-img-dark relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="font-title text-5xl text-white">НАШИ <span class="text-gold-metal">РАБОТЫ</span></h2>
+        <div class="w-24 h-1 bg-gold-500 mx-auto my-4 mb-10"></div>
+    </div>
 
-    <!-- Карта боли -->
-    <section id="painmap" class="py-20 bg-black relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="font-title text-5xl text-white">КАРТА <span class="text-gold-500">БОЛИ</span></h2>
-            <div class="w-24 h-1 bg-gold-500 mx-auto my-4"></div>
-            <p class="text-gray-400 max-w-2xl mx-auto mb-10">Нажмите на любую часть тела, чтобы узнать уровень боли (от 1 до 10).</p>
-            <div class="flex flex-col md:flex-row gap-8 justify-center items-center">
-                <div class="relative w-full max-w-md">
-                    <svg viewBox="0 0 300 500" class="w-full h-auto" id="bodyPainMap">
-                        <circle cx="150" cy="50" r="30" fill="#1a1a1a" stroke="#d4af37" stroke-width="2" data-part="head" class="body-part cursor-pointer transition hover:fill-gold-800/50" />
-                        <rect x="110" y="90" width="80" height="80" rx="10" fill="#1a1a1a" stroke="#d4af37" stroke-width="2" data-part="chest" class="body-part cursor-pointer transition hover:fill-gold-800/50" />
-                        <rect x="110" y="175" width="80" height="80" rx="10" fill="#1a1a1a" stroke="#d4af37" stroke-width="2" data-part="belly" class="body-part cursor-pointer transition hover:fill-gold-800/50" />
-                        <path d="M110 100 L70 80 L50 110 L60 140 L90 150" fill="none" stroke="#d4af37" stroke-width="8" stroke-linecap="round" data-part="left-arm" class="body-part cursor-pointer transition hover:stroke-gold-400" />
-                        <path d="M190 100 L230 80 L250 110 L240 140 L210 150" fill="none" stroke="#d4af37" stroke-width="8" stroke-linecap="round" data-part="right-arm" class="body-part cursor-pointer transition hover:stroke-gold-400" />
-                        <path d="M130 260 L120 340 L100 420" fill="none" stroke="#d4af37" stroke-width="10" stroke-linecap="round" data-part="left-leg" class="body-part cursor-pointer transition hover:stroke-gold-400" />
-                        <path d="M170 260 L180 340 L200 420" fill="none" stroke="#d4af37" stroke-width="10" stroke-linecap="round" data-part="right-leg" class="body-part cursor-pointer transition hover:stroke-gold-400" />
-                        <rect x="110" y="250" width="80" height="50" rx="5" fill="#1a1a1a" stroke="#d4af37" stroke-width="2" data-part="back" class="body-part cursor-pointer transition hover:fill-gold-800/50" />
-                    </svg>
+    <div class="swiper mySwiper max-w-6xl mx-auto px-4 overflow-hidden">
+        <div class="swiper-wrapper pb-12">
+            <!-- 20 слайдов (замените пути на ваши изображения) -->
+            <div class="swiper-slide"><img src="image/work1.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work1.jpg')" alt="работа 1"></div>
+            <div class="swiper-slide"><img src="image/work2.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work2.jpg')" alt="работа 2"></div>
+            <div class="swiper-slide"><img src="image/work3.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work3.jpg')" alt="работа 3"></div>
+            <div class="swiper-slide"><img src="image/work4.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work4.jpg')" alt="работа 4"></div>
+            <div class="swiper-slide"><img src="image/work5.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work5.jpg')" alt="работа 5"></div>
+            <div class="swiper-slide"><img src="image/work6.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work6.jpg')" alt="работа 6"></div>
+            <div class="swiper-slide"><img src="image/work7.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work7.jpg')" alt="работа 7"></div>
+            <div class="swiper-slide"><img src="image/work8.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work8.jpg')" alt="работа 8"></div>
+            <div class="swiper-slide"><img src="image/work9.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work9.jpg')" alt="работа 9"></div>
+            <div class="swiper-slide"><img src="image/work10.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work10.jpg')" alt="работа 10"></div>
+            <div class="swiper-slide"><img src="image/work11.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work11.jpg')" alt="работа 11"></div>
+            <div class="swiper-slide"><img src="image/work12.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work12.jpg')" alt="работа 12"></div>
+            <div class="swiper-slide"><img src="image/work13.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work13.jpg')" alt="работа 13"></div>
+            <div class="swiper-slide"><img src="image/work14.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work14.jpg')" alt="работа 14"></div>
+            <div class="swiper-slide"><img src="image/work15.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work15.jpg')" alt="работа 15"></div>
+            <div class="swiper-slide"><img src="image/work16.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work16.jpg')" alt="работа 16"></div>
+            <div class="swiper-slide"><img src="image/work17.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work17.jpg')" alt="работа 17"></div>
+            <div class="swiper-slide"><img src="image/work18.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work18.jpg')" alt="работа 18"></div>
+            <div class="swiper-slide"><img src="image/work19.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work19.jpg')" alt="работа 19"></div>
+            <div class="swiper-slide"><img src="image/work20.jpg" class="rounded-xl w-full h-80 object-cover shadow-lg border border-gold-500 cursor-pointer" onclick="openImageViewer('image/work20.jpg')" alt="работа 20"></div>
+        </div>
+        <!-- Стрелки и пагинация -->
+        <div class="swiper-button-prev !text-gold-500"></div>
+        <div class="swiper-button-next !text-gold-500"></div>
+        <div class="swiper-pagination !bottom-0"></div>
+    </div>
+</section>
+
+    <!-- Карта боли — улучшенная версия -->
+<!-- ОБЪЕДИНЁННЫЙ БЛОК: УСЛУГИ + КАРТА БОЛИ (золотые рамки) -->
+<section id="services-pain" class="py-20 bg-black relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10" style="background-image: url('image/zoloto122121212121.png'); background-repeat: repeat; background-size: 200px;"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-12">
+            <h2 class="font-title text-5xl text-white">
+                <span class="text-gold-metal">УСЛУГИ</span> И КАРТА <span class="text-gold-metal">БОЛИ</span>
+            </h2>
+            <div class="w-24 h-1 bg-gold-500 mx-auto my-3"></div>
+            <p class="text-gray-400 max-w-2xl mx-auto">Выберите услугу или узнайте уровень боли на разных участках тела</p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-10 items-stretch">
+            <!-- ЛЕВАЯ КОЛОНКА: КАРТА БОЛИ -->
+            <div class="bg-black border border-gold-500 rounded-2xl p-6 transition-all hover:shadow-lg hover:shadow-gold-500/20 flex flex-col">
+                <h3 class="font-title text-2xl text-white text-center mb-2">Интерактивная карта боли</h3>
+                <p class="text-gray-400 text-center text-sm mb-6">Нажмите на любую зону, чтобы увидеть уровень</p>
+                
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center flex-1">
+                    <div class="relative w-full max-w-sm">
+                        <svg viewBox="0 0 300 500" class="w-full h-auto drop-shadow-lg" id="bodyPainMap">
+                            <circle cx="150" cy="50" r="30" fill="#111" stroke="#d4af37" stroke-width="2.5" data-part="head" class="body-part cursor-pointer transition-all duration-200 hover:stroke-gold-400 hover:fill-gold-500/20" />
+                            <rect x="110" y="90" width="80" height="80" rx="10" fill="#111" stroke="#d4af37" stroke-width="2.5" data-part="chest" class="body-part cursor-pointer transition-all duration-200 hover:stroke-gold-400 hover:fill-gold-500/20" />
+                            <rect x="110" y="175" width="80" height="80" rx="10" fill="#111" stroke="#d4af37" stroke-width="2.5" data-part="belly" class="body-part cursor-pointer transition-all duration-200 hover:stroke-gold-400 hover:fill-gold-500/20" />
+                            <path d="M110 100 L70 80 L50 110 L60 140 L90 150" fill="none" stroke="#d4af37" stroke-width="8" stroke-linecap="round" data-part="left-arm" class="body-part cursor-pointer transition-all duration-200 hover:stroke-gold-400" />
+                            <path d="M190 100 L230 80 L250 110 L240 140 L210 150" fill="none" stroke="#d4af37" stroke-width="8" stroke-linecap="round" data-part="right-arm" class="body-part cursor-pointer transition-all duration-200 hover:stroke-gold-400" />
+                            <path d="M130 260 L120 340 L100 420" fill="none" stroke="#d4af37" stroke-width="10" stroke-linecap="round" data-part="left-leg" class="body-part cursor-pointer transition-all duration-200 hover:stroke-gold-400" />
+                            <path d="M170 260 L180 340 L200 420" fill="none" stroke="#d4af37" stroke-width="10" stroke-linecap="round" data-part="right-leg" class="body-part cursor-pointer transition-all duration-200 hover:stroke-gold-400" />
+                            <rect x="110" y="250" width="80" height="50" rx="5" fill="#111" stroke="#d4af37" stroke-width="2.5" data-part="back" class="body-part cursor-pointer transition-all duration-200 hover:stroke-gold-400 hover:fill-gold-500/20" />
+                        </svg>
+                    </div>
+                    
+                    <div class="w-full">
+                        <div id="painResult" class="min-h-[160px] bg-black/60 rounded-xl p-4 border-l-4 border-gold-500">
+                            <div class="flex flex-col items-center justify-center text-gray-400">
+                                <i data-lucide="fingerprint" class="w-10 h-10 mb-2 text-gold-500"></i>
+                                <p class="text-sm">Нажмите на любую зону тела</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 text-center mt-3">* Шкала: 1 — почти не больно, 10 — очень больно</p>
+                    </div>
                 </div>
-                <div class="bg-black border border-gold-600 rounded-2xl p-6 max-w-sm w-full">
-                    <h3 class="font-title text-2xl text-white">Уровень боли</h3>
-                    <div id="painResult" class="mt-4"><p class="text-gray-400">Нажмите на часть тела</p></div>
-                    <div class="mt-4 text-sm text-gray-500">* Шкала от 1 (почти не больно) до 10 (очень больно)</div>
+            </div>
+
+            <!-- ПРАВАЯ КОЛОНКА: УСЛУГИ С СЕРЕБРЯНЫМИ ЦЕНАМИ -->
+            <div class="bg-black border border-gold-500 rounded-2xl p-6 transition-all hover:shadow-lg hover:shadow-gold-500/20 flex flex-col">
+                <h3 class="font-title text-2xl text-white text-center mb-2">Прайс на услуги</h3>
+                <p class="text-gray-400 text-center text-sm mb-6">Стоимость указана ориентировочно</p>
+                
+                <div class="space-y-4 flex-1">
+                    <!-- Обучение -->
+                    <div class="flex items-center justify-between p-3 border-b border-gold-500/50 hover:bg-gold-500/5 transition rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-title text-xl text-white">Обучение</h4>
+                            <p class="text-gray-400 text-xs">Профессиональное обучение тату-искусству</p>
+                        </div>
+                        <div class="text-right mr-4">
+                            <span class="text-xl font-bold text-silver">5 000 – 50 000 ₽</span>
+                        </div>
+                        <button onclick="openBookingModal()" class="btn-outline-gold px-3 py-1 rounded-full text-xs whitespace-nowrap">Запись</button>
+                    </div>
+                    
+                    <!-- Тату -->
+                    <div class="flex items-center justify-between p-3 border-b border-gold-500/50 hover:bg-gold-500/5 transition rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-title text-xl text-white">Тату</h4>
+                            <p class="text-gray-400 text-xs">Воплощаем идею в реальность</p>
+                        </div>
+                        <div class="text-right mr-4">
+                            <span class="text-xl font-bold text-silver">5 000 – 30 000 ₽</span>
+                        </div>
+                        <button onclick="openBookingModal()" class="btn-outline-gold px-3 py-1 rounded-full text-xs whitespace-nowrap">Запись</button>
+                    </div>
+                    
+                    <!-- Удаление тату -->
+                    <div class="flex items-center justify-between p-3 border-b border-gold-500/50 hover:bg-gold-500/5 transition rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-title text-xl text-white">Удаление тату</h4>
+                            <p class="text-gray-400 text-xs">Лазерное удаление любой сложности</p>
+                        </div>
+                        <div class="text-right mr-4">
+                            <span class="text-xl font-bold text-silver">2 000 – 25 000 ₽</span>
+                        </div>
+                        <button onclick="openBookingModal()" class="btn-outline-gold px-3 py-1 rounded-full text-xs whitespace-nowrap">Запись</button>
+                    </div>
+                    
+                    <!-- Перекрытие -->
+                    <div class="flex items-center justify-between p-3 hover:bg-gold-500/5 transition rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-title text-xl text-white">Перекрытие</h4>
+                            <p class="text-gray-400 text-xs">Cover Up старых тату</p>
+                        </div>
+                        <div class="text-right mr-4">
+                            <span class="text-xl font-bold text-silver">4 000 – 20 000 ₽</span>
+                        </div>
+                        <button onclick="openBookingModal()" class="btn-outline-gold px-3 py-1 rounded-full text-xs whitespace-nowrap">Запись</button>
+                    </div>
+                </div>
+                
+                <div class="mt-8 text-center">
+                    <button onclick="openBookingModal()" class="btn-outline-gold px-6 py-2 rounded-full text-sm">Получить индивидуальный расчёт</button>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Услуги -->
-    <section id="services" class="py-20 bg-black/90">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="font-title text-5xl text-center text-white">УСЛУГИ <span class="text-gold-500">И ЦЕНЫ</span></h2>
-            <div class="w-24 h-1 bg-gold-500 mx-auto my-4"></div>
-            <div class="grid md:grid-cols-3 gap-6 mt-10">
-                <div class="card-dragon p-6 rounded-xl bg-black/50"><div class="w-12 h-12 bg-gold-500/20 rounded-full flex items-center justify-center"><i data-lucide="feather" class="text-gold-500"></i></div><h3 class="font-title text-2xl mt-3">Миниатюра</h3><p class="text-gray-400">до 5 см</p><div class="text-3xl font-bold text-gold-500 my-2">от 3 000 ₽</div><button onclick="openBookingModal()" class="btn-outline-gold w-full py-2 rounded-full text-sm">Записаться</button></div>
-                <div class="card-dragon p-6 rounded-xl bg-black/50"><div class="w-12 h-12 bg-gold-500/20 rounded-full flex items-center justify-center"><i data-lucide="sun" class="text-gold-500"></i></div><h3 class="font-title text-2xl mt-3">Средняя</h3><p class="text-gray-400">10-20 см</p><div class="text-3xl font-bold text-gold-500 my-2">от 8 000 ₽</div><button onclick="openBookingModal()" class="btn-outline-gold w-full py-2 rounded-full text-sm">Записаться</button></div>
-                <div class="card-dragon p-6 rounded-xl bg-black/50"><div class="w-12 h-12 bg-gold-500/20 rounded-full flex items-center justify-center"><i data-lucide="layers" class="text-gold-500"></i></div><h3 class="font-title text-2xl mt-3">Рукав / Спина</h3><p class="text-gray-400">сложные проекты</p><div class="text-3xl font-bold text-gold-500 my-2">от 25 000 ₽</div><button onclick="openBookingModal()" class="btn-outline-gold w-full py-2 rounded-full text-sm">Записаться</button></div>
-                <div class="card-dragon p-6 rounded-xl bg-black/50"><div class="w-12 h-12 bg-gold-500/20 rounded-full flex items-center justify-center"><i data-lucide="edit-3" class="text-gold-500"></i></div><h3 class="font-title text-2xl mt-3">Cover Up</h3><p class="text-gray-400">перекрытие</p><div class="text-3xl font-bold text-gold-500 my-2">от 12 000 ₽</div><button onclick="openBookingModal()" class="btn-outline-gold w-full py-2 rounded-full text-sm">Записаться</button></div>
-                <div class="card-dragon p-6 rounded-xl bg-black/50"><div class="w-12 h-12 bg-gold-500/20 rounded-full flex items-center justify-center"><i data-lucide="scissors" class="text-gold-500"></i></div><h3 class="font-title text-2xl mt-3">Коррекция</h3><p class="text-gray-400">обновление</p><div class="text-3xl font-bold text-gold-500 my-2">от 5 000 ₽</div><button onclick="openBookingModal()" class="btn-outline-gold w-full py-2 rounded-full text-sm">Записаться</button></div>
-                <div class="card-dragon p-6 rounded-xl bg-black/50"><div class="w-12 h-12 bg-gold-500/20 rounded-full flex items-center justify-center"><i data-lucide="image" class="text-gold-500"></i></div><h3 class="font-title text-2xl mt-3">Эскиз</h3><p class="text-gray-400">индивидуальный</p><div class="text-3xl font-bold text-gold-500 my-2">от 2 000 ₽</div><button onclick="openBookingModal()" class="btn-outline-gold w-full py-2 rounded-full text-sm">Записаться</button></div>
-            </div>
-        </div>
-    </section>
-
+    </div>
+</section>
     <!-- Контакты -->
-    <section id="contacts" class="py-20 bg-black border-t border-gold-800">
+    <section id="contacts" class="py-20 bg-img-dark relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12">
             <div>
-                <h2 class="font-title text-5xl text-white">КОНТАКТЫ</h2>
+                <h2 class="font-title text-5xl text-white"><span class="text-gold-metal">КОНТАКТЫ</span></h2>
                 <div class="w-20 h-1 bg-gold-500 my-4"></div>
                 <div class="space-y-5 mt-6">
                     <div class="flex gap-3"><i data-lucide="map-pin" class="text-gold-500"></i><div><p class="font-bold text-white">Адрес</p><p class="text-gray-400">Москва, ул. Драконья, 13</p></div></div>
@@ -235,10 +413,10 @@
                     <div id="step1_modal">
                         <h3 class="text-xl font-bold text-white">Выберите услугу</h3>
                         <div class="grid md:grid-cols-2 gap-3 mt-4">
-                            <div onclick="selectServiceModal('Миниатюра')" class="service-card-modal p-3 border border-gray-700 rounded-lg cursor-pointer hover:border-gold-500"><span class="font-bold text-white">Миниатюра</span><span class="float-right text-gold-500">от 3 000₽</span></div>
-                            <div onclick="selectServiceModal('Средняя')" class="service-card-modal p-3 border border-gray-700 rounded-lg cursor-pointer hover:border-gold-500"><span class="font-bold text-white">Средняя</span><span class="float-right text-gold-500">от 8 000₽</span></div>
-                            <div onclick="selectServiceModal('Крупная')" class="service-card-modal p-3 border border-gray-700 rounded-lg cursor-pointer hover:border-gold-500"><span class="font-bold text-white">Крупная</span><span class="float-right text-gold-500">от 25 000₽</span></div>
-                            <div onclick="selectServiceModal('Cover Up')" class="service-card-modal p-3 border border-gray-700 rounded-lg cursor-pointer hover:border-gold-500"><span class="font-bold text-white">Cover Up</span><span class="float-right text-gold-500">от 12 000₽</span></div>
+                            <div onclick="selectServiceModal('Миниатюра', this)" class="service-card-modal p-3 border border-gray-700 rounded-lg cursor-pointer hover:border-gold-500"><span class="font-bold text-white">Обучение</span><span class="float-right text-gold-500">от 5 000₽</span></div>
+                            <div onclick="selectServiceModal('Средняя', this)" class="service-card-modal p-3 border border-gray-700 rounded-lg cursor-pointer hover:border-gold-500"><span class="font-bold text-white">Тату</span><span class="float-right text-gold-500">от 5 000₽</span></div>
+                            <div onclick="selectServiceModal('Крупная', this)" class="service-card-modal p-3 border border-gray-700 rounded-lg cursor-pointer hover:border-gold-500"><span class="font-bold text-white">Удаление тату</span><span class="float-right text-gold-500">от 2 000₽</span></div>
+                            <div onclick="selectServiceModal('Cover Up', this)" class="service-card-modal p-3 border border-gray-700 rounded-lg cursor-pointer hover:border-gold-500"><span class="font-bold text-white">Перекрытие</span><span class="float-right text-gold-500">от 4 000₽</span></div>
                         </div>
                         <button onclick="nextStepModal(2)" id="nextStep1" class="mt-6 btn-outline-gold px-6 py-2 rounded-lg float-right" disabled>Далее →</button>
                     </div>
@@ -246,12 +424,27 @@
                     <div id="step2_modal" class="hidden">
                         <h3 class="text-xl font-bold text-white">Выберите мастера</h3>
                         <div class="grid grid-cols-2 gap-3 mt-4">
-                            <div onclick="selectMasterModal('Артём')" class="master-card p-2 border border-gray-700 rounded-lg text-center cursor-pointer hover:border-gold-500"><img src="image/88" class="w-16 h-16 rounded-full mx-auto"><span class="block mt-1 text-white">Артём</span></div>
-                            <div onclick="selectMasterModal('Елена')" class="master-card p-2 border border-gray-700 rounded-lg text-center cursor-pointer hover:border-gold-500"><img src="image/88" class="w-16 h-16 rounded-full mx-auto"><span class="block mt-1 text-white">Елена</span></div>
-                            <div onclick="selectMasterModal('Дмитрий')" class="master-card p-2 border border-gray-700 rounded-lg text-center cursor-pointer hover:border-gold-500"><img src="imag" class="w-16 h-16 rounded-full mx-auto"><span class="block mt-1 text-white">Дмитрий</span></div>
-                            <div onclick="selectMasterModal('Анна')" class="master-card p-2 border border-gray-700 rounded-lg text-center cursor-pointer hover:border-gold-500"><img src="image/88jpg" class="w-16 h-16 rounded-full mx-auto"><span class="block mt-1 text-white">Анна</span></div>
+                            <div onclick="selectMasterModal('Артём', this)" class="master-card p-2 border border-gray-700 rounded-lg text-center cursor-pointer hover:border-gold-500">
+                                <img src="image/мужек44.jpg" class="w-24 h-24 rounded-full object-cover object-center mx-auto">
+                                <span class="block mt-1 text-white">Артём</span>
+                            </div>
+                            <div onclick="selectMasterModal('Елена', this)" class="master-card p-2 border border-gray-700 rounded-lg text-center cursor-pointer hover:border-gold-500">
+                                <img src="image/девушка 1.jpg" class="w-24 h-24 rounded-full object-cover object-center mx-auto">
+                                <span class="block mt-1 text-white">Елена</span>
+                            </div>
+                            <div onclick="selectMasterModal('Дмитрий', this)" class="master-card p-2 border border-gray-700 rounded-lg text-center cursor-pointer hover:border-gold-500">
+                                <img src="image/Саша.jpg" class="w-24 h-24 rounded-full object-cover object-center mx-auto">
+                                <span class="block mt-1 text-white">Дмитрий</span>
+                            </div>
+                            <div onclick="selectMasterModal('Анна', this)" class="master-card p-2 border border-gray-700 rounded-lg text-center cursor-pointer hover:border-gold-500">
+                                <img src="image/katja-442x600.jpg" class="w-24 h-24 rounded-full object-cover object-center mx-auto">
+                                <span class="block mt-1 text-white">Анна</span>
+                            </div>
                         </div>
-                        <div class="flex justify-between mt-6"><button onclick="prevStepModal(1)" class="border border-gray-600 px-4 py-2 rounded-lg text-white">← Назад</button><button id="nextStep2" onclick="nextStepModal(3)" class="btn-outline-gold px-6 py-2 rounded-lg" disabled>Далее →</button></div>
+                        <div class="flex justify-between mt-6">
+                            <button onclick="prevStepModal(1)" class="border border-gray-600 px-4 py-2 rounded-lg text-white">← Назад</button>
+                            <button id="nextStep2" onclick="nextStepModal(3)" class="btn-outline-gold px-6 py-2 rounded-lg" disabled>Далее →</button>
+                        </div>
                     </div>
                     <!-- Step 3 -->
                     <div id="step3_modal" class="hidden">

@@ -35,38 +35,43 @@ function resetModal() {
 function updateModalProgress(step) {
     for (let i = 1; i <= 4; i++) {
         let badge = document.getElementById(`step${i}-badge`);
+        // Удаляем все возможные классы цвета и текста
+        badge.classList.remove(
+            'bg-gray-700', 'bg-green-600', 'bg-gold-500', 'bg-gold-600',
+            'text-gray-300', 'text-white', 'text-black'
+        );
+        
         if (i < step) {
-            badge.classList.remove('bg-gray-700', 'text-gray-300');
-            badge.classList.add('bg-green-600', 'text-white');
+            badge.classList.add('bg-gold-600', 'text-black');
             badge.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i>';
         } else if (i === step) {
-            badge.classList.remove('bg-gray-700', 'text-gray-300');
-            badge.classList.add('bg-gold-600', 'text-black');
+            badge.classList.add('bg-gold-500', 'text-black');
             badge.innerHTML = i;
         } else {
-            badge.classList.remove('bg-gold-600', 'bg-green-600', 'text-white');
             badge.classList.add('bg-gray-700', 'text-gray-300');
             badge.innerHTML = i;
         }
     }
+    
+    // Обновление линий (оставляем как было)
     let line1 = document.getElementById('line1'), line2 = document.getElementById('line2'), line3 = document.getElementById('line3');
     if (step > 1) line1.classList.add('bg-gold-500'); else line1.classList.remove('bg-gold-500');
     if (step > 2) line2.classList.add('bg-gold-500'); else line2.classList.remove('bg-gold-500');
     if (step > 3) line3.classList.add('bg-gold-500'); else line3.classList.remove('bg-gold-500');
+    
     if (window.lucide) lucide.createIcons();
 }
-
-function selectServiceModal(service) {
+function selectServiceModal(service, element) {
     booking.service = service;
     document.querySelectorAll('.service-card-modal').forEach(c => c.classList.remove('border-gold-500'));
-    event.currentTarget.classList.add('border-gold-500');
+    element.classList.add('border-gold-500');
     document.getElementById('nextStep1').disabled = false;
 }
 
-function selectMasterModal(master) {
+function selectMasterModal(master, element) {
     booking.master = master;
     document.querySelectorAll('.master-card').forEach(c => c.classList.remove('border-gold-500'));
-    event.currentTarget.classList.add('border-gold-500');
+    element.classList.add('border-gold-500');
     document.getElementById('nextStep2').disabled = false;
 }
 
@@ -181,21 +186,30 @@ function initPainMap() {
         chest: { name: "Грудная клетка", level: 7, description: "Кости близко к коже, ощутимо" },
         belly: { name: "Живот", level: 6, description: "Средняя боль, но зависит от веса" },
         back: { name: "Спина / Поясница", level: 5, description: "Терпимо, но длительные сеансы утомляют" },
-        'left-arm': { name: "Левая рука (плечо/предплечье)", level: 4, description: "Одна из наименее болезненных зон" },
-        'right-arm': { name: "Правая рука (плечо/предплечье)", level: 4, description: "Аналогично левой" },
-        'left-leg': { name: "Левая нога (голень/бедро)", level: 5, description: "Мышцы смягчают боль, но кости голени чувствительны" },
-        'right-leg': { name: "Правая нога (голень/бедро)", level: 5, description: "То же, что и левая" }
+        'left-arm': { name: "Левая рука", level: 4, description: "Одна из наименее болезненных зон" },
+        'right-arm': { name: "Правая рука", level: 4, description: "Аналогично левой" },
+        'left-leg': { name: "Левая нога", level: 5, description: "Мышцы смягчают боль, но кости голени чувствительны" },
+        'right-leg': { name: "Правая нога", level: 5, description: "То же, что и левая" }
     };
+    
     const parts = document.querySelectorAll('.body-part');
     const resultDiv = document.getElementById('painResult');
+    
     parts.forEach(part => {
-        part.addEventListener('click', (e) => {
+        part.addEventListener('click', () => {
             const partKey = part.getAttribute('data-part');
             const data = painData[partKey];
             if (data) {
                 let stars = '';
                 for (let i = 1; i <= 10; i++) stars += i <= data.level ? '🔥' : '⚫';
-                resultDiv.innerHTML = `<div class="bg-gold-500/10 p-3 rounded-lg"><p class="text-xl font-bold text-white">${data.name}</p><p class="text-2xl text-gold-500 my-2">${data.level} / 10</p><p class="text-sm text-gray-300">${stars}</p><p class="text-sm text-gray-400 mt-2">${data.description}</p></div>`;
+                resultDiv.innerHTML = `
+                    <div class="bg-gold-500/10 p-4 rounded-xl border-l-4 border-gold-500 animate-fadeIn">
+                        <p class="text-xl font-bold text-white">${data.name}</p>
+                        <p class="text-2xl text-gold-500 my-2">${data.level} / 10</p>
+                        <p class="text-sm text-gray-300">${stars}</p>
+                        <p class="text-sm text-gray-400 mt-3">${data.description}</p>
+                    </div>
+                `;
             } else {
                 resultDiv.innerHTML = `<p class="text-gray-400">Информация скоро появится</p>`;
             }
@@ -203,35 +217,120 @@ function initPainMap() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const dateInput = document.getElementById('bookingDate');
-    if (dateInput) {
-        const today = new Date().toISOString().split('T')[0];
-        dateInput.min = today;
+// ========== СЛАЙДЕР ДЛЯ РАЗДЕЛА "О СТУДИИ" ==========
+function initAboutSlider() {
+    const track = document.getElementById('slider-track');
+    const prevBtn = document.getElementById('slider-prev');
+    const nextBtn = document.getElementById('slider-next');
+    const dotsContainer = document.getElementById('slider-dots');
+    if (!track || !prevBtn || !nextBtn) return;
+    
+    const slides = Array.from(track.children);
+    const slideCount = slides.length;
+    let currentIndex = 0;
+    
+    if (dotsContainer) {
+        dotsContainer.innerHTML = '';
+        slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = `w-2 h-2 rounded-full transition-all ${i === 0 ? 'bg-gold-500 w-4' : 'bg-gray-400'}`;
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        });
     }
-    const phoneInputs = document.querySelectorAll('input[type="tel"]');
-    phoneInputs.forEach(inp => {
-        inp.addEventListener('input', function(e) {
-            let val = e.target.value.replace(/\D/g, '');
-            if (val.length > 0) {
-                if (val[0] === '7' || val[0] === '8') val = val.substring(1);
-                let formatted = '+7';
-                if (val.length > 0) formatted += ' (' + val.substring(0, 3);
-                if (val.length >= 3) formatted += ') ' + val.substring(3, 6);
-                if (val.length >= 6) formatted += '-' + val.substring(6, 8);
-                if (val.length >= 8) formatted += '-' + val.substring(8, 10);
-                e.target.value = formatted;
+    
+    function updateDots() {
+        const dots = document.querySelectorAll('#slider-dots button');
+        dots.forEach((dot, i) => {
+            if (i === currentIndex) {
+                dot.classList.remove('bg-gray-400', 'w-2');
+                dot.classList.add('bg-gold-500', 'w-4');
+            } else {
+                dot.classList.remove('bg-gold-500', 'w-4');
+                dot.classList.add('bg-gray-400', 'w-2');
             }
         });
-    });
-    window.addEventListener('scroll', function() {
-        const nav = document.getElementById('navbar');
-        if (window.scrollY > 50) {
-            nav.classList.add('bg-black/90', 'backdrop-blur-md');
-            nav.classList.remove('bg-transparent');
-        } else {
-            nav.classList.remove('bg-black/90', 'backdrop-blur-md');
-            nav.classList.add('bg-transparent');
-        }
-    });
+    }
+    
+    function goToSlide(index) {
+        if (index < 0) index = slideCount - 1;
+        if (index >= slideCount) index = 0;
+        currentIndex = index;
+        const offset = -currentIndex * 100;
+        track.style.transform = `translateX(${offset}%)`;
+        updateDots();
+    }
+    
+    nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+    prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+    
+    let autoplayInterval = setInterval(() => goToSlide(currentIndex + 1), 5000);
+    const sliderContainer = document.getElementById('about-slider');
+    if (sliderContainer) {
+        sliderContainer.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+        sliderContainer.addEventListener('mouseleave', () => {
+            autoplayInterval = setInterval(() => goToSlide(currentIndex + 1), 5000);
+        });
+    }
+}
+
+// ========== ПРОСМОТРЩИК ИЗОБРАЖЕНИЙ (ГАЛЕРЕЯ) ==========
+function openImageViewer(imageSrc) {
+    let viewer = document.getElementById('image-viewer');
+    if (!viewer) {
+        viewer = document.createElement('div');
+        viewer.id = 'image-viewer';
+        viewer.className = 'fixed inset-0 z-[70] hidden modal-backdrop items-center justify-center';
+        viewer.style.display = 'none';
+        viewer.innerHTML = `
+            <div class="fixed inset-0 bg-black/90" onclick="closeImageViewer()"></div>
+            <div class="relative max-w-4xl mx-4">
+                <img id="viewer-img" src="" class="max-w-full max-h-[90vh] rounded-lg border-2 border-gold-500 shadow-2xl">
+                <button onclick="closeImageViewer()" class="absolute -top-10 right-0 text-white hover:text-gold-500 text-2xl">✕</button>
+            </div>
+        `;
+        document.body.appendChild(viewer);
+    }
+    const img = document.getElementById('viewer-img');
+    img.src = imageSrc;
+    viewer.style.display = 'flex';
+    viewer.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeImageViewer() {
+    const viewer = document.getElementById('image-viewer');
+    if (viewer) {
+        viewer.style.display = 'none';
+        viewer.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// ========== ИНИЦИАЛИЗАЦИЯ SWIPER ДЛЯ ГАЛЕРЕИ РАБОТ ==========
+function initSwiperGallery() {
+    if (document.querySelector('.mySwiper')) {
+        new Swiper('.mySwiper', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: { delay: 3000, disableOnInteraction: false },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            breakpoints: {
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 }
+            }
+        });
+    }
+}
+
+// ========== ЗАПУСК ВСЕГО ПРИ ЗАГРУЗКЕ ==========
+document.addEventListener('DOMContentLoaded', () => {
+    lucide.createIcons();
+    initFloatingCards();
+    initStyleFilter();
+    initPainMap();
+    initAboutSlider();
+    initSwiperGallery();  // <-- запуск галереи Swiper
 });
